@@ -1,0 +1,1 @@
+var json_FasilitasKesehatan_2 = {"type":"FeatureCollection","name":"FasilitasKesehatan_2","crs":{"type":"name","properties":{"name":"urn:ogc:def:crs:OGC:1.3:CRS84"}},"features":[{"type":"Feature","properties":{"Faskes":"Puskesmas Antam"},"geometry":{"type":"Point","coordinates":[106.570820278821458,-6.657980788134841]}}]}
