@@ -22,8 +22,7 @@
         }
         </style>
         <title></title>
-    
-        <style>
+		<style>
 
 /* =========================================================
    DASHBOARD ANTAM - STYLE INDEX 5
@@ -349,8 +348,7 @@
    FILTER
    ========================================================= */
 
-#rute-evakuasi-filter,
-#rute-sementara-filter {
+#rute-evakuasi-filter {
     width: 100%;
 
     box-sizing: border-box;
@@ -656,24 +654,8 @@
     font-size: 14px;
 }
 </style>
-    <style id="mine-survey-about-style">
-#mine-survey-about-overlay{position:fixed;inset:0;z-index:999999;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.55);padding:20px;box-sizing:border-box}
-#mine-survey-about-overlay.is-open{display:flex}
-#mine-survey-about-card{width:min(900px,94vw);max-height:90vh;overflow:auto;background:#fff;border-radius:12px;box-shadow:0 18px 60px rgba(0,0,0,.35);color:#173333;font-family:Arial,sans-serif}
-#mine-survey-about-head{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:#003535;color:#fff}
-#mine-survey-about-head strong{font-size:18px}
-#mine-survey-about-close{border:0;background:transparent;color:#fff;font-size:26px;line-height:1;cursor:pointer}
-#mine-survey-about-body{padding:18px 20px 24px}
-#mine-survey-about-photo{width:100%;max-height:330px;object-fit:cover;display:block;border-radius:9px;margin-bottom:18px}
-#mine-survey-about-body h3{margin:18px 0 8px;color:#003535;font-size:16px}
-#mine-survey-about-body p{margin:0 0 10px;line-height:1.65;font-size:13px}
-#mine-survey-about-body ul{margin:6px 0 12px 20px;padding:0;line-height:1.65;font-size:13px}
-.mine-survey-quote{margin:16px 0;padding:12px 14px;border-left:4px solid #00a6a6;background:#eef7f7;border-radius:4px;font-weight:600}
-.mine-survey-structure{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:9px;margin-top:10px}
-.mine-survey-structure div{padding:10px;border:1px solid #d5e1e1;border-radius:7px;background:#f7fafa;font-size:12px;line-height:1.45}
-</style>
-</head>
-<body>
+    </head>
+    <body>
         <div id="map">
         </div>
         <script src="js/qgis2web_expressions.js"></script>
@@ -692,9 +674,8 @@
         <script src="js/leaflet.photon.js"></script>
         <script src="js/leaflet-measure.js"></script>
         <script src="data/TITIK_KUMPUL_Sementara_1.js"></script>
-        <script src="data/FasilitasKesehatan_2.js"></script>
-        <script src="data/JALUR_TITIK_KUMPUL_3.js"></script>
-        <script src="data/evakuasi_utama_3_4.js"></script>
+        <script src="data/new_layer_2.js"></script>
+        <script src="data/evakuasi_utama_3.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -713,7 +694,7 @@
         }
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:8
-        }).fitBounds([[-6.684066002531283,106.53662349192211],[-6.630515780933659,106.61805571178635]]);
+        }).fitBounds([[-6.671192804784852,106.557638056481],[-6.65667994863806,106.57770722677292]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/qgis2web/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -832,8 +813,8 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">Field1</th>\
-                        <td class="visible-with-data" id="Field1">' + (feature.properties['Field1'] !== null ? autolinker.link(String(feature.properties['Field1']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <th scope="row">TITIK_KUMPUL:</th>\
+                        <td class="visible-with-data" id="TITIK_KUMPUL:">' + (feature.properties['TITIK_KUMPUL:'] !== null ? autolinker.link(String(feature.properties['TITIK_KUMPUL:']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -843,10 +824,8 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_TITIK_KUMPUL_Sementara_1_0(feature) {
-            switch(String(feature.properties['Field1'])) {
-                case 'ADMIN':
-                    return {
+        function style_TITIK_KUMPUL_Sementara_1_0() {
+            return {
                 pane: 'pane_TITIK_KUMPUL_Sementara_1',
         rotationAngle: 0.0,
         rotationOrigin: 'center center',
@@ -855,140 +834,6 @@
             iconSize: [21.279999999999998, 21.279999999999998]
         }),
                 interactive: true,
-            }
-                    break;
-                case 'GFA':
-                    return {
-                pane: 'pane_TITIK_KUMPUL_Sementara_1',
-        rotationAngle: 0.0,
-        rotationOrigin: 'center center',
-        icon: L.icon({
-            iconUrl: 'markers/TITIK_KUMPUL_Sementara_1.svg',
-            iconSize: [21.279999999999998, 21.279999999999998]
-        }),
-                interactive: true,
-            }
-                    break;
-                case 'GUDANG':
-                    return {
-                pane: 'pane_TITIK_KUMPUL_Sementara_1',
-        rotationAngle: 0.0,
-        rotationOrigin: 'center center',
-        icon: L.icon({
-            iconUrl: 'markers/TITIK_KUMPUL_Sementara_1.svg',
-            iconSize: [21.279999999999998, 21.279999999999998]
-        }),
-                interactive: true,
-            }
-                    break;
-                case 'GUDANG HANDAK UTAMA':
-                    return {
-                pane: 'pane_TITIK_KUMPUL_Sementara_1',
-        rotationAngle: 0.0,
-        rotationOrigin: 'center center',
-        icon: L.icon({
-            iconUrl: 'markers/TITIK_KUMPUL_Sementara_1.svg',
-            iconSize: [21.279999999999998, 21.279999999999998]
-        }),
-                interactive: true,
-            }
-                    break;
-                case 'GUDANGGEOMIN':
-                    return {
-                pane: 'pane_TITIK_KUMPUL_Sementara_1',
-        rotationAngle: 0.0,
-        rotationOrigin: 'center center',
-        icon: L.icon({
-            iconUrl: 'markers/TITIK_KUMPUL_Sementara_1.svg',
-            iconSize: [21.279999999999998, 21.279999999999998]
-        }),
-                interactive: true,
-            }
-                    break;
-                case 'KANTOR GEOMIN':
-                    return {
-                pane: 'pane_TITIK_KUMPUL_Sementara_1',
-        rotationAngle: 0.0,
-        rotationOrigin: 'center center',
-        icon: L.icon({
-            iconUrl: 'markers/TITIK_KUMPUL_Sementara_1.svg',
-            iconSize: [21.279999999999998, 21.279999999999998]
-        }),
-                interactive: true,
-            }
-                    break;
-                case 'KANTOR TAMBANG':
-                    return {
-                pane: 'pane_TITIK_KUMPUL_Sementara_1',
-        rotationAngle: 0.0,
-        rotationOrigin: 'center center',
-        icon: L.icon({
-            iconUrl: 'markers/TITIK_KUMPUL_Sementara_1.svg',
-            iconSize: [21.279999999999998, 21.279999999999998]
-        }),
-                interactive: true,
-            }
-                    break;
-                case 'KAWACI':
-                    return {
-                pane: 'pane_TITIK_KUMPUL_Sementara_1',
-        rotationAngle: 0.0,
-        rotationOrigin: 'center center',
-        icon: L.icon({
-            iconUrl: 'markers/TITIK_KUMPUL_Sementara_1.svg',
-            iconSize: [21.279999999999998, 21.279999999999998]
-        }),
-                interactive: true,
-            }
-                    break;
-                case 'L.600':
-                    return {
-                pane: 'pane_TITIK_KUMPUL_Sementara_1',
-        rotationAngle: 0.0,
-        rotationOrigin: 'center center',
-        icon: L.icon({
-            iconUrl: 'markers/TITIK_KUMPUL_Sementara_1.svg',
-            iconSize: [21.279999999999998, 21.279999999999998]
-        }),
-                interactive: true,
-            }
-                    break;
-                case 'PENGOLAHAN':
-                    return {
-                pane: 'pane_TITIK_KUMPUL_Sementara_1',
-        rotationAngle: 0.0,
-        rotationOrigin: 'center center',
-        icon: L.icon({
-            iconUrl: 'markers/TITIK_KUMPUL_Sementara_1.svg',
-            iconSize: [21.279999999999998, 21.279999999999998]
-        }),
-                interactive: true,
-            }
-                    break;
-                case 'SEMEN SILO':
-                    return {
-                pane: 'pane_TITIK_KUMPUL_Sementara_1',
-        rotationAngle: 0.0,
-        rotationOrigin: 'center center',
-        icon: L.icon({
-            iconUrl: 'markers/TITIK_KUMPUL_Sementara_1.svg',
-            iconSize: [21.279999999999998, 21.279999999999998]
-        }),
-                interactive: true,
-            }
-                    break;
-                default:
-                    return {
-                pane: 'pane_TITIK_KUMPUL_Sementara_1',
-        rotationAngle: 0.0,
-        rotationOrigin: 'center center',
-        icon: L.icon({
-            iconUrl: 'markers/TITIK_KUMPUL_Sementara_1.svg',
-            iconSize: [21.279999999999998, 21.279999999999998]
-        }),
-                interactive: true,
-            }
-                    break;
             }
         }
         map.createPane('pane_TITIK_KUMPUL_Sementara_1');
@@ -1011,7 +856,7 @@
         });
         bounds_group.addLayer(layer_TITIK_KUMPUL_Sementara_1);
         map.addLayer(layer_TITIK_KUMPUL_Sementara_1);
-        function pop_FasilitasKesehatan_2(feature, layer) {
+        function pop_new_layer_2(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (var i in e.target._eventParents) {
@@ -1035,9 +880,9 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_FasilitasKesehatan_2_0() {
+        function style_new_layer_2_0() {
             return {
-                pane: 'pane_FasilitasKesehatan_2',
+                pane: 'pane_new_layer_2',
                 radius: 10.4,
                 opacity: 1,
                 color: 'rgba(227,26,28,1.0)',
@@ -1051,9 +896,9 @@
                 interactive: true,
             }
         }
-        function style_FasilitasKesehatan_2_1() {
+        function style_new_layer_2_1() {
             return {
-                pane: 'pane_FasilitasKesehatan_2',
+                pane: 'pane_new_layer_2',
                 radius: 6.0,
                 opacity: 1,
                 color: 'rgba(227,26,28,1.0)',
@@ -1067,153 +912,33 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_FasilitasKesehatan_2');
-        map.getPane('pane_FasilitasKesehatan_2').style.zIndex = 402;
-        map.getPane('pane_FasilitasKesehatan_2').style['mix-blend-mode'] = 'normal';
-        var layer_FasilitasKesehatan_2 = new L.geoJson.multiStyle(json_FasilitasKesehatan_2, {
+        map.createPane('pane_new_layer_2');
+        map.getPane('pane_new_layer_2').style.zIndex = 402;
+        map.getPane('pane_new_layer_2').style['mix-blend-mode'] = 'normal';
+        var layer_new_layer_2 = new L.geoJson.multiStyle(json_new_layer_2, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_FasilitasKesehatan_2',
-            layerName: 'layer_FasilitasKesehatan_2',
-            pane: 'pane_FasilitasKesehatan_2',
-            onEachFeature: pop_FasilitasKesehatan_2,
+            dataVar: 'json_new_layer_2',
+            layerName: 'layer_new_layer_2',
+            pane: 'pane_new_layer_2',
+            onEachFeature: pop_new_layer_2,
             pointToLayers: [function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.shapeMarker(latlng, style_FasilitasKesehatan_2_0(feature));
+                return L.shapeMarker(latlng, style_new_layer_2_0(feature));
             },function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.shapeMarker(latlng, style_FasilitasKesehatan_2_1(feature));
+                return L.shapeMarker(latlng, style_new_layer_2_1(feature));
             },
         ]});
-        bounds_group.addLayer(layer_FasilitasKesehatan_2);
-        map.addLayer(layer_FasilitasKesehatan_2);
-        function pop_JALUR_TITIK_KUMPUL_3(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (var i in e.target._eventParents) {
-                        if (typeof e.target._eventParents[i].resetStyle === 'function') {
-                            e.target._eventParents[i].resetStyle(e.target);
-                        }
-                    }
-                },
-                mouseover: highlightFeature,
-            });
-            var popupContent = '<table>\
-                    <tr>\
-                        <th scope="row">Keterangan</th>\
-                        <td class="visible-with-data" id="Keterangan">' + (feature.properties['Keterangan'] !== null ? autolinker.link(String(feature.properties['Keterangan']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
-			layer.on('popupopen', function(e) {
-				addClassToPopupIfMedia(content, e.popup);
-			});
-			layer.bindPopup(content, { maxHeight: 400 });
-        }
-
-        function style_JALUR_TITIK_KUMPUL_3_0(feature) {
-            switch(String(feature.properties['Keterangan'])) {
-                case 'Jalur Evakuasi Ke Titik Kumpul  Admin':
-                    return {
-                pane: 'pane_JALUR_TITIK_KUMPUL_3',
-                interactive: true,
-            }
-                    break;
-                case 'Jalur Evakuasi Ke Titik Kumpul  Gudang':
-                    return {
-                pane: 'pane_JALUR_TITIK_KUMPUL_3',
-                interactive: true,
-            }
-                    break;
-                case 'Jalur Evakuasi Ke Titik Kumpul Admin':
-                    return {
-                pane: 'pane_JALUR_TITIK_KUMPUL_3',
-                interactive: true,
-            }
-                    break;
-                case 'Jalur Evakuasi Ke Titik Kumpul GFA':
-                    return {
-                pane: 'pane_JALUR_TITIK_KUMPUL_3',
-                interactive: true,
-            }
-                    break;
-                case 'Jalur Evakuasi Ke Titik Kumpul Gudang':
-                    return {
-                pane: 'pane_JALUR_TITIK_KUMPUL_3',
-                interactive: true,
-            }
-                    break;
-                case 'Jalur Evakuasi Ke Titik Kumpul Gudang Geomin':
-                    return {
-                pane: 'pane_JALUR_TITIK_KUMPUL_3',
-                interactive: true,
-            }
-                    break;
-                case 'Jalur Evakuasi Ke Titik Kumpul Kantor Geomin':
-                    return {
-                pane: 'pane_JALUR_TITIK_KUMPUL_3',
-                interactive: true,
-            }
-                    break;
-                case 'Jalur Evakuasi Ke Titik Kumpul Kantor Tambang':
-                    return {
-                pane: 'pane_JALUR_TITIK_KUMPUL_3',
-                interactive: true,
-            }
-                    break;
-                case 'Jalur Evakuasi Ke Titik Kumpul Kawaci':
-                    return {
-                pane: 'pane_JALUR_TITIK_KUMPUL_3',
-                interactive: true,
-            }
-                    break;
-                case 'Jalur Evakuasi Ke Titik Kumpul L.600':
-                    return {
-                pane: 'pane_JALUR_TITIK_KUMPUL_3',
-                interactive: true,
-            }
-                    break;
-                case 'Jalur Evakuasi Ke Titik Kumpul Pengolahan':
-                    return {
-                pane: 'pane_JALUR_TITIK_KUMPUL_3',
-                interactive: true,
-            }
-                    break;
-                case 'Jalur Evakuasi Ke Titik Kumpul Semen Silo':
-                    return {
-                pane: 'pane_JALUR_TITIK_KUMPUL_3',
-                interactive: true,
-            }
-                    break;
-                default:
-                    return {
-                pane: 'pane_JALUR_TITIK_KUMPUL_3',
-                interactive: true,
-            }
-                    break;
-            }
-        }
-        map.createPane('pane_JALUR_TITIK_KUMPUL_3');
-        map.getPane('pane_JALUR_TITIK_KUMPUL_3').style.zIndex = 403;
-        map.getPane('pane_JALUR_TITIK_KUMPUL_3').style['mix-blend-mode'] = 'normal';
-        var layer_JALUR_TITIK_KUMPUL_3 = new L.geoJson(json_JALUR_TITIK_KUMPUL_3, {
-            attribution: '',
-            interactive: true,
-            dataVar: 'json_JALUR_TITIK_KUMPUL_3',
-            layerName: 'layer_JALUR_TITIK_KUMPUL_3',
-            pane: 'pane_JALUR_TITIK_KUMPUL_3',
-            onEachFeature: pop_JALUR_TITIK_KUMPUL_3,
-            style: style_JALUR_TITIK_KUMPUL_3_0,
-        });
-        bounds_group.addLayer(layer_JALUR_TITIK_KUMPUL_3);
-        map.addLayer(layer_JALUR_TITIK_KUMPUL_3);
-        function pop_evakuasi_utama_3_4(feature, layer) {
+        bounds_group.addLayer(layer_new_layer_2);
+        map.addLayer(layer_new_layer_2);
+        function pop_evakuasi_utama_3(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (var i in e.target._eventParents) {
@@ -1245,95 +970,94 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_evakuasi_utama_3_4_0(feature) {
+        function style_evakuasi_utama_3_0(feature) {
             switch(String(feature.properties['Titik Awal'])) {
-                case 'GUDANG HANDAK UTAMA':
-                    return {
-                pane: 'pane_evakuasi_utama_3_4',
-                interactive: true,
-            }
-                    break;
                 case 'ADMIN':
                     return {
-                pane: 'pane_evakuasi_utama_3_4',
+                pane: 'pane_evakuasi_utama_3',
                 interactive: true,
             }
                     break;
                 case 'GFA':
                     return {
-                pane: 'pane_evakuasi_utama_3_4',
+                pane: 'pane_evakuasi_utama_3',
                 interactive: true,
             }
                     break;
                 case 'GUDANG':
                     return {
-                pane: 'pane_evakuasi_utama_3_4',
+                pane: 'pane_evakuasi_utama_3',
                 interactive: true,
             }
                     break;
                 case 'GUDANGGEOMIN':
                     return {
-                pane: 'pane_evakuasi_utama_3_4',
+                pane: 'pane_evakuasi_utama_3',
                 interactive: true,
             }
                     break;
                 case 'KANTOR GEOMIN':
                     return {
-                pane: 'pane_evakuasi_utama_3_4',
+                pane: 'pane_evakuasi_utama_3',
                 interactive: true,
             }
                     break;
                 case 'KANTOR TAMBANG':
                     return {
-                pane: 'pane_evakuasi_utama_3_4',
+                pane: 'pane_evakuasi_utama_3',
                 interactive: true,
             }
                     break;
                 case 'KAWACI':
                     return {
-                pane: 'pane_evakuasi_utama_3_4',
+                pane: 'pane_evakuasi_utama_3',
                 interactive: true,
             }
                     break;
                 case 'L.600':
                     return {
-                pane: 'pane_evakuasi_utama_3_4',
+                pane: 'pane_evakuasi_utama_3',
                 interactive: true,
             }
                     break;
                 case 'PENGOLAHAN':
                     return {
-                pane: 'pane_evakuasi_utama_3_4',
+                pane: 'pane_evakuasi_utama_3',
                 interactive: true,
             }
                     break;
                 case 'SEMEN SILO':
                     return {
-                pane: 'pane_evakuasi_utama_3_4',
+                pane: 'pane_evakuasi_utama_3',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_evakuasi_utama_3',
                 interactive: true,
             }
                     break;
             }
         }
-        map.createPane('pane_evakuasi_utama_3_4');
-        map.getPane('pane_evakuasi_utama_3_4').style.zIndex = 404;
-        map.getPane('pane_evakuasi_utama_3_4').style['mix-blend-mode'] = 'normal';
-        var layer_evakuasi_utama_3_4 = new L.geoJson(json_evakuasi_utama_3_4, {
+        map.createPane('pane_evakuasi_utama_3');
+        map.getPane('pane_evakuasi_utama_3').style.zIndex = 403;
+        map.getPane('pane_evakuasi_utama_3').style['mix-blend-mode'] = 'normal';
+        var layer_evakuasi_utama_3 = new L.geoJson(json_evakuasi_utama_3, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_evakuasi_utama_3_4',
-            layerName: 'layer_evakuasi_utama_3_4',
-            pane: 'pane_evakuasi_utama_3_4',
-            onEachFeature: pop_evakuasi_utama_3_4,
-            style: style_evakuasi_utama_3_4_0,
+            dataVar: 'json_evakuasi_utama_3',
+            layerName: 'layer_evakuasi_utama_3',
+            pane: 'pane_evakuasi_utama_3',
+            onEachFeature: pop_evakuasi_utama_3,
+            style: style_evakuasi_utama_3_0,
         });
-        bounds_group.addLayer(layer_evakuasi_utama_3_4);
-        map.addLayer(layer_evakuasi_utama_3_4);
+        bounds_group.addLayer(layer_evakuasi_utama_3);
+        map.addLayer(layer_evakuasi_utama_3);
         var overlaysTree = [
-            {label: 'evakuasi_utama_3<br /><table><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_4_0.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_4_ADMIN1.png" /></td><td>ADMIN</td></tr><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_4_GFA2.png" /></td><td>GFA</td></tr><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_4_GUDANG3.png" /></td><td>GUDANG</td></tr><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_4_GUDANGGEOMIN4.png" /></td><td>GUDANGGEOMIN</td></tr><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_4_KANTORGEOMIN5.png" /></td><td>KANTOR GEOMIN</td></tr><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_4_KANTORTAMBANG6.png" /></td><td>KANTOR TAMBANG</td></tr><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_4_KAWACI7.png" /></td><td>KAWACI</td></tr><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_4_L6008.png" /></td><td>L.600</td></tr><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_4_PENGOLAHAN9.png" /></td><td>PENGOLAHAN</td></tr><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_4_SEMENSILO10.png" /></td><td>SEMEN SILO</td></tr></table>', layer: layer_evakuasi_utama_3_4},
-            {label: 'JALUR_TITIK_KUMPUL<br /><table><tr><td style="text-align: center;"><img src="legend/JALUR_TITIK_KUMPUL_3_JalurEvakuasiKeTitikKumpulAdmin0.png" /></td><td>Jalur Evakuasi Ke Titik Kumpul  Admin</td></tr><tr><td style="text-align: center;"><img src="legend/JALUR_TITIK_KUMPUL_3_JalurEvakuasiKeTitikKumpulGudang1.png" /></td><td>Jalur Evakuasi Ke Titik Kumpul  Gudang</td></tr><tr><td style="text-align: center;"><img src="legend/JALUR_TITIK_KUMPUL_3_JalurEvakuasiKeTitikKumpulAdmin2.png" /></td><td>Jalur Evakuasi Ke Titik Kumpul Admin</td></tr><tr><td style="text-align: center;"><img src="legend/JALUR_TITIK_KUMPUL_3_JalurEvakuasiKeTitikKumpulGFA3.png" /></td><td>Jalur Evakuasi Ke Titik Kumpul GFA</td></tr><tr><td style="text-align: center;"><img src="legend/JALUR_TITIK_KUMPUL_3_JalurEvakuasiKeTitikKumpulGudang4.png" /></td><td>Jalur Evakuasi Ke Titik Kumpul Gudang</td></tr><tr><td style="text-align: center;"><img src="legend/JALUR_TITIK_KUMPUL_3_JalurEvakuasiKeTitikKumpulGudangGeomin5.png" /></td><td>Jalur Evakuasi Ke Titik Kumpul Gudang Geomin</td></tr><tr><td style="text-align: center;"><img src="legend/JALUR_TITIK_KUMPUL_3_JalurEvakuasiKeTitikKumpulKantorGeomin6.png" /></td><td>Jalur Evakuasi Ke Titik Kumpul Kantor Geomin</td></tr><tr><td style="text-align: center;"><img src="legend/JALUR_TITIK_KUMPUL_3_JalurEvakuasiKeTitikKumpulKantorTambang7.png" /></td><td>Jalur Evakuasi Ke Titik Kumpul Kantor Tambang</td></tr><tr><td style="text-align: center;"><img src="legend/JALUR_TITIK_KUMPUL_3_JalurEvakuasiKeTitikKumpulKawaci8.png" /></td><td>Jalur Evakuasi Ke Titik Kumpul Kawaci</td></tr><tr><td style="text-align: center;"><img src="legend/JALUR_TITIK_KUMPUL_3_JalurEvakuasiKeTitikKumpulL6009.png" /></td><td>Jalur Evakuasi Ke Titik Kumpul L.600</td></tr><tr><td style="text-align: center;"><img src="legend/JALUR_TITIK_KUMPUL_3_JalurEvakuasiKeTitikKumpulPengolahan10.png" /></td><td>Jalur Evakuasi Ke Titik Kumpul Pengolahan</td></tr><tr><td style="text-align: center;"><img src="legend/JALUR_TITIK_KUMPUL_3_JalurEvakuasiKeTitikKumpulSemenSilo11.png" /></td><td>Jalur Evakuasi Ke Titik Kumpul Semen Silo</td></tr><tr><td style="text-align: center;"><img src="legend/JALUR_TITIK_KUMPUL_3_12.png" /></td><td></td></tr></table>', layer: layer_JALUR_TITIK_KUMPUL_3},
-            {label: '<img src="legend/FasilitasKesehatan_2.png" /> Fasilitas Kesehatan', layer: layer_FasilitasKesehatan_2},
-            {label: 'TITIK_KUMPUL_Sementara<br /><table><tr><td style="text-align: center;"><img src="legend/TITIK_KUMPUL_Sementara_1_ADMIN0.png" /></td><td>ADMIN</td></tr><tr><td style="text-align: center;"><img src="legend/TITIK_KUMPUL_Sementara_1_GFA1.png" /></td><td>GFA</td></tr><tr><td style="text-align: center;"><img src="legend/TITIK_KUMPUL_Sementara_1_GUDANG2.png" /></td><td>GUDANG</td></tr><tr><td style="text-align: center;"><img src="legend/TITIK_KUMPUL_Sementara_1_GUDANGHANDAKUTAMA3.png" /></td><td>GUDANG HANDAK UTAMA</td></tr><tr><td style="text-align: center;"><img src="legend/TITIK_KUMPUL_Sementara_1_GUDANGGEOMIN4.png" /></td><td>GUDANGGEOMIN</td></tr><tr><td style="text-align: center;"><img src="legend/TITIK_KUMPUL_Sementara_1_KANTORGEOMIN5.png" /></td><td>KANTOR GEOMIN</td></tr><tr><td style="text-align: center;"><img src="legend/TITIK_KUMPUL_Sementara_1_KANTORTAMBANG6.png" /></td><td>KANTOR TAMBANG</td></tr><tr><td style="text-align: center;"><img src="legend/TITIK_KUMPUL_Sementara_1_KAWACI7.png" /></td><td>KAWACI</td></tr><tr><td style="text-align: center;"><img src="legend/TITIK_KUMPUL_Sementara_1_L6008.png" /></td><td>L.600</td></tr><tr><td style="text-align: center;"><img src="legend/TITIK_KUMPUL_Sementara_1_PENGOLAHAN9.png" /></td><td>PENGOLAHAN</td></tr><tr><td style="text-align: center;"><img src="legend/TITIK_KUMPUL_Sementara_1_SEMENSILO10.png" /></td><td>SEMEN SILO</td></tr><tr><td style="text-align: center;"><img src="legend/TITIK_KUMPUL_Sementara_1_11.png" /></td><td></td></tr></table>', layer: layer_TITIK_KUMPUL_Sementara_1},
+            {label: 'evakuasi_utama<br /><table><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_ADMIN0.png" /></td><td>ADMIN</td></tr><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_GFA1.png" /></td><td>GFA</td></tr><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_GUDANG2.png" /></td><td>GUDANG</td></tr><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_GUDANGGEOMIN3.png" /></td><td>GUDANGGEOMIN</td></tr><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_KANTORGEOMIN4.png" /></td><td>KANTOR GEOMIN</td></tr><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_KANTORTAMBANG5.png" /></td><td>KANTOR TAMBANG</td></tr><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_KAWACI6.png" /></td><td>KAWACI</td></tr><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_L6007.png" /></td><td>L.600</td></tr><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_PENGOLAHAN8.png" /></td><td>PENGOLAHAN</td></tr><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_SEMENSILO9.png" /></td><td>SEMEN SILO</td></tr><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_10.png" /></td><td></td></tr></table>', layer: layer_evakuasi_utama_3},
+            {label: '<img src="legend/new_layer_2.png" /> new_layer', layer: layer_new_layer_2},
+            {label: '<img src="legend/TITIK_KUMPUL_Sementara_1.png" /> TITIK_KUMPUL_Sementara', layer: layer_TITIK_KUMPUL_Sementara_1},
             {label: "Google Satelit", layer: layer_GoogleSatelit_0},]
         var lay = L.control.layers.tree(null, overlaysTree,{
             //namedToggle: true,
@@ -1343,20 +1067,12 @@
             //collapseAll: 'Collapse all',
             //expandAll: 'Expand all',
             collapsed: true,
-        });
-        lay.addTo(map);
-        setBounds();
-        resetLabels([layer_TITIK_KUMPUL_Sementara_1]);
-        map.on("zoomend", function(){
-            resetLabels([layer_TITIK_KUMPUL_Sementara_1]);
-        });
-        map.on("layeradd", function(){
-            resetLabels([layer_TITIK_KUMPUL_Sementara_1]);
-        });
-        map.on("layerremove", function(){
-            resetLabels([layer_TITIK_KUMPUL_Sementara_1]);
-        });
-        </script>
+   });
+lay.addTo(map);
+setBounds();
+
+</script>
+
 
 <script>
 
@@ -1379,7 +1095,12 @@
     function tungguPeta(callback) {
 
         if (
-            typeof map !== "undefined"
+
+            typeof map !== "undefined" &&
+
+            typeof layer_evakuasi_utama_3
+                !== "undefined"
+
         ) {
 
             callback();
@@ -1650,7 +1371,7 @@
 <div class="sidebar-section">
 
     <div class="sidebar-title">
-        RUTE EVAKUASI UTAMA
+        FILTER RUTE EVAKUASI
     </div>
 
     <select
@@ -1658,25 +1379,6 @@
     >
 
         <option value="SEMUA_RUTE">
-            Semua Rute
-        </option>
-
-    </select>
-
-</div>
-
-
-<!-- ================= RUTE EVAKUASI SEMENTARA ================= -->
-
-<div class="sidebar-section">
-
-    <div class="sidebar-title">
-        RUTE EVAKUASI SEMENTARA
-    </div>
-
-    <select id="rute-sementara-filter">
-
-        <option value="SEMUA_RUTE_SEMENTARA">
             Semua Rute
         </option>
 
@@ -2036,14 +1738,14 @@ var filterRute =
    ================================================= */
 
 if (
-    typeof json_evakuasi_utama_3_4
+    typeof json_evakuasi_utama_3
     !== "undefined"
 ) {
 
     var daftarRute = new Set();
 
 
-    json_evakuasi_utama_3_4.features
+    json_evakuasi_utama_3.features
         .forEach(
             function (feature) {
 
@@ -2117,334 +1819,90 @@ if (
 }
 
        /* =================================================
-          FILTER RUTE EVAKUASI UTAMA & SEMENTARA
-          ================================================= */
+   FILTER RUTE EVAKUASI
+   ================================================= */
 
-        var filterRuteSementara =
-            document.getElementById("rute-sementara-filter");
+filterRute.addEventListener(
+    "change",
+    function () {
 
-        /*
-         * Aturan tampilan:
-         * 1. Saat halaman pertama dibuka: semua rute utama +
-         *    semua rute sementara ditampilkan.
-         * 2. Memilih satu RUTE EVAKUASI UTAMA:
-         *    hanya rute utama yang dipilih yang tampil.
-         *    semua rute sementara disembunyikan.
-         * 3. Memilih satu RUTE EVAKUASI SEMENTARA:
-         *    hanya rute sementara yang dipilih yang tampil.
-         *    semua rute utama disembunyikan.
-         * 4. Memilih "Semua Rute" pada salah satu dropdown:
-         *    kembali menampilkan semua rute utama + sementara.
-         */
+        var selected =
+            this.value;
 
-        function setStyleRute(layer, tampil) {
-            if (!layer) return;
 
-            layer._routeVisible = !!tampil;
+        if (
+            typeof layer_evakuasi_utama_3
+            === "undefined"
+        ) {
 
-            if (layer.setStyle) {
-                layer.setStyle({
-                    opacity: tampil ? 1 : 0,
-                    fillOpacity: tampil ? 1 : 0
-                });
-            }
-
-            /* Rute hanya dikontrol dari dashboard, bukan dari peta. */
-            if (typeof layer.off === "function") layer.off();
-            if (layer._path) layer._path.style.pointerEvents = "none";
-        }
-
-        function matikanInteraksiRute() {
-            function matikan(group) {
-                if (!group || typeof group.eachLayer !== "function") return;
-                group.eachLayer(function(layer) {
-                    if (typeof layer.off === "function") layer.off();
-                    layer._routeDashboardOnly = true;
-                    if (layer._path) layer._path.style.pointerEvents = "none";
-                });
-            }
-            matikan(typeof layer_evakuasi_utama_3_4 !== "undefined" ? layer_evakuasi_utama_3_4 : null);
-            matikan(typeof layer_JALUR_TITIK_KUMPUL_3 !== "undefined" ? layer_JALUR_TITIK_KUMPUL_3 : null);
-        }
-
-        function tampilkanSemuaRute() {
-
-            if (
-                typeof layer_evakuasi_utama_3_4 !== "undefined"
-            ) {
-                layer_evakuasi_utama_3_4.eachLayer(
-                    function(layer) {
-                        setStyleRute(layer, true);
-                    }
-                );
-            }
-
-            if (
-                typeof layer_JALUR_TITIK_KUMPUL_3 !== "undefined"
-            ) {
-                layer_JALUR_TITIK_KUMPUL_3.eachLayer(
-                    function(layer) {
-                        setStyleRute(layer, true);
-                    }
-                );
-            }
+            return;
 
         }
 
-        function tampilkanRuteUtamaYangDipilih(selected) {
 
-            if (
-                typeof layer_evakuasi_utama_3_4 === "undefined"
-            ) {
-                return;
-            }
+        layer_evakuasi_utama_3.eachLayer(
+            function (layer) {
 
-            layer_evakuasi_utama_3_4.eachLayer(
-                function(layer) {
+                if (!layer.feature) {
 
-                    if (!layer.feature) {
-                        return;
-                    }
-
-                    var p =
-                        layer.feature.properties || {};
-
-                    var lokasiAwal =
-                        String(
-                            p["Lokasi Awal"] ?? ""
-                        ).trim();
-
-                    var tujuan =
-                        String(
-                            p["Tujuan"] ?? ""
-                        ).trim();
-
-                    var namaRute =
-                        lokasiAwal + " → " + tujuan;
-
-                    setStyleRute(
-                        layer,
-                        namaRute === selected
-                    );
+                    return;
 
                 }
-            );
 
-        }
 
-        function sembunyikanSemuaRuteSementara() {
+                var p =
+                    layer.feature.properties || {};
 
-            if (
-                typeof layer_JALUR_TITIK_KUMPUL_3 === "undefined"
-            ) {
-                return;
-            }
 
-            layer_JALUR_TITIK_KUMPUL_3.eachLayer(
-                function(layer) {
-                    setStyleRute(layer, false);
-                }
-            );
+                var lokasiAwal =
+                    String(
+                        p["Lokasi Awal"] ?? ""
+                    ).trim();
 
-        }
 
-        function tampilkanRuteSementaraYangDipilih(selected) {
+                var tujuan =
+                    String(
+                        p["Tujuan"] ?? ""
+                    ).trim();
 
-            if (
-                typeof layer_JALUR_TITIK_KUMPUL_3 === "undefined"
-            ) {
-                return;
-            }
 
-            layer_JALUR_TITIK_KUMPUL_3.eachLayer(
-                function(layer) {
+                var namaRute =
+                    lokasiAwal +
+                    " → " +
+                    tujuan;
 
-                    if (!layer.feature) {
-                        return;
-                    }
 
-                    var p =
-                        layer.feature.properties || {};
+                var tampil =
 
-                    var namaRute =
-                        String(
-                            p["Keterangan"] ?? ""
-                        ).trim();
-
-                    setStyleRute(
-                        layer,
-                        namaRute === selected
-                    );
-
-                }
-            );
-
-        }
-
-        /* =================================================
-           FILTER RUTE EVAKUASI UTAMA
-           ================================================= */
-
-        filterRute.addEventListener(
-            "change",
-            function() {
-
-                var selected =
-                    this.value;
-
-                if (
                     selected === "SEMUA_RUTE"
-                ) {
 
-                    tampilkanSemuaRute();
+                    ||
 
-                    if (filterRuteSementara) {
-                        filterRuteSementara.value =
-                            "SEMUA_RUTE_SEMENTARA";
-                    }
+                    namaRute === selected;
 
-                } else {
 
-                    tampilkanRuteUtamaYangDipilih(
-                        selected
-                    );
+                if (layer.setStyle) {
 
-                    /* Rute sementara disembunyikan */
-                    sembunyikanSemuaRuteSementara();
+                    layer.setStyle({
 
-                    if (filterRuteSementara) {
-                        filterRuteSementara.value =
-                            "SEMUA_RUTE_SEMENTARA";
-                    }
+                        opacity:
+                            tampil ? 1 : 0,
+
+                        fillOpacity:
+                            tampil ? 1 : 0
+
+                    });
 
                 }
-
-                updateStatistics();
 
             }
         );
 
-        /* =================================================
-           ISI DROPDOWN RUTE EVAKUASI SEMENTARA
-           ================================================= */
 
-        if (
-            filterRuteSementara &&
-            typeof json_JALUR_TITIK_KUMPUL_3 !== "undefined"
-        ) {
+        updateStatistics();
 
-            var daftarRuteSementara =
-                new Set();
-
-            json_JALUR_TITIK_KUMPUL_3.features.forEach(
-                function(feature) {
-
-                    var p =
-                        feature.properties || {};
-
-                    var keterangan =
-                        String(
-                            p["Keterangan"] ?? ""
-                        ).trim();
-
-                    if (keterangan !== "") {
-                        daftarRuteSementara.add(
-                            keterangan
-                        );
-                    }
-
-                }
-            );
-
-            Array.from(daftarRuteSementara)
-                .sort()
-                .forEach(
-                    function(namaRute) {
-
-                        var option =
-                            document.createElement(
-                                "option"
-                            );
-
-                        option.value =
-                            namaRute;
-
-                        option.textContent =
-                            namaRute;
-
-                        filterRuteSementara.appendChild(
-                            option
-                        );
-
-                    }
-                );
-
-            /* =================================================
-               FILTER RUTE EVAKUASI SEMENTARA
-               ================================================= */
-
-            filterRuteSementara.addEventListener(
-                "change",
-                function() {
-
-                    var selected =
-                        this.value;
-
-                    if (
-                        selected ===
-                        "SEMUA_RUTE_SEMENTARA"
-                    ) {
-
-                        tampilkanSemuaRute();
-
-                        if (filterRute) {
-                            filterRute.value =
-                                "SEMUA_RUTE";
-                        }
-
-                    } else {
-
-                        tampilkanRuteSementaraYangDipilih(
-                            selected
-                        );
-
-                        /* Rute utama disembunyikan */
-                        if (
-                            typeof layer_evakuasi_utama_3_4
-                            !== "undefined"
-                        ) {
-
-                            layer_evakuasi_utama_3_4.eachLayer(
-                                function(layer) {
-                                    setStyleRute(
-                                        layer,
-                                        false
-                                    );
-                                }
-                            );
-
-                        }
-
-                        if (filterRute) {
-                            filterRute.value =
-                                "SEMUA_RUTE";
-                        }
-
-                    }
-
-                    updateStatistics();
-
-                }
-            );
-
-        }
-
-        /*
-         * KONDISI AWAL:
-         * semua rute utama dan semua rute sementara tampil.
-         */
-        tampilkanSemuaRute();
-        matikanInteraksiRute();
+    }
+);
 
 
         /* =================================================
@@ -2518,126 +1976,12 @@ if (
                 function () {
 
                     toggleLayer(
-                        layer_evakuasi_utama_3_4,
+                        layer_evakuasi_utama_3,
                         this.checked
                     );
 
                 }
             );
-
-        /* =================================================
-           FILTER RUTE EVAKUASI SEMENTARA
-           (JALUR TITIK KUMPUL)
-           INDEPENDEN DARI RUTE EVAKUASI UTAMA
-           ================================================= */
-
-        var filterRuteSementara =
-            document.getElementById(
-                "rute-sementara-filter"
-            );
-
-        if (
-            filterRuteSementara &&
-            typeof json_JALUR_TITIK_KUMPUL_3 !== "undefined"
-        ) {
-
-            var daftarRuteSementara = new Set();
-
-            json_JALUR_TITIK_KUMPUL_3.features.forEach(
-                function (feature) {
-
-                    var p =
-                        feature.properties || {};
-
-                    var keterangan =
-                        String(
-                            p["Keterangan"] ?? ""
-                        ).trim();
-
-                    if (keterangan !== "") {
-                        daftarRuteSementara.add(keterangan);
-                    }
-
-                }
-            );
-
-            Array.from(daftarRuteSementara)
-                .sort()
-                .forEach(
-                    function (namaRute) {
-
-                        var option =
-                            document.createElement(
-                                "option"
-                            );
-
-                        option.value =
-                            namaRute;
-
-                        option.textContent =
-                            namaRute;
-
-                        filterRuteSementara.appendChild(
-                            option
-                        );
-
-                    }
-                );
-
-            filterRuteSementara.addEventListener(
-                "change",
-                function () {
-
-                    var selected =
-                        this.value;
-
-                    if (
-                        typeof layer_JALUR_TITIK_KUMPUL_3
-                        === "undefined"
-                    ) {
-                        return;
-                    }
-
-                    layer_JALUR_TITIK_KUMPUL_3.eachLayer(
-                        function (layer) {
-
-                            if (!layer.feature) {
-                                return;
-                            }
-
-                            var p =
-                                layer.feature.properties || {};
-
-                            var namaRute =
-                                String(
-                                    p["Keterangan"] ?? ""
-                                ).trim();
-
-                            var tampil =
-                                selected ===
-                                "SEMUA_RUTE_SEMENTARA"
-                                ||
-                                namaRute === selected;
-
-                            if (layer.setStyle) {
-
-                                layer.setStyle({
-                                    opacity:
-                                        tampil ? 1 : 0,
-
-                                    fillOpacity:
-                                        tampil ? 1 : 0
-                                });
-
-                            }
-
-                        }
-                    );
-
-                }
-            );
-
-        }
 
 
         /* =================================================
@@ -2674,31 +2018,13 @@ if (
                 function () {
 
                     toggleLayer(
-                        layer_FasilitasKesehatan_2,
+                        layer_new_layer_2,
                         this.checked
                     );
 
                 }
             );
 
-
-        /* =================================================
-           HITUNG JARAK DARI GEOMETRI JIKA FIELD KOSONG
-           ================================================= */
-        function hitungPanjangRuteMeter(layer) {
-            if (!layer || typeof layer.getLatLngs !== "function" || typeof map === "undefined") return 0;
-
-            function panjang(data) {
-                if (!Array.isArray(data) || data.length < 2) return 0;
-                if (data[0] && typeof data[0].lat === "number" && typeof data[0].lng === "number") {
-                    var total = 0;
-                    for (var i = 1; i < data.length; i++) total += map.distance(data[i-1], data[i]);
-                    return total;
-                }
-                return data.reduce(function(sum, item) { return sum + panjang(item); }, 0);
-            }
-            return panjang(layer.getLatLngs());
-        }
 
         /* =================================================
            STATISTIK
@@ -2733,12 +2059,12 @@ if (
 
             if (
                 typeof
-                layer_evakuasi_utama_3_4
+                layer_evakuasi_utama_3
                 !== "undefined"
             ) {
 
 
-                layer_evakuasi_utama_3_4
+                layer_evakuasi_utama_3
                     .eachLayer(
                         function (layer) {
 
@@ -2797,20 +2123,51 @@ if (
 
                             /* Jarak */
 
-                            var rawJarak = p["Jarak Jalur Evakuasi"];
-                            var jarak = 0;
+                            var rawJarak =
+                                p[
+                                    "Jarak Jalur Evakuasi"
+                                ];
 
-                            if (rawJarak !== null && rawJarak !== undefined && String(rawJarak).trim() !== "") {
-                                var angka = String(rawJarak).replace(",", ".").replace(/[^\\d.-]/g, "");
-                                jarak = Number(angka);
-                            }
 
-                            if (!Number.isFinite(jarak) || jarak <= 0) {
-                                jarak = hitungPanjangRuteMeter(layer);
-                            }
+                            if (
+                                rawJarak !==
+                                null &&
+                                rawJarak !==
+                                undefined
+                            ) {
 
-                            if (Number.isFinite(jarak) && jarak > 0) {
-                                totalPanjang += jarak;
+
+                                var angka =
+                                    String(
+                                        rawJarak
+                                    )
+                                    .replace(
+                                        ",",
+                                        "."
+                                    )
+                                    .replace(
+                                        /[^\d.-]/g,
+                                        ""
+                                    );
+
+
+                                var jarak =
+                                    Number(
+                                        angka
+                                    );
+
+
+                                if (
+                                    Number.isFinite(
+                                        jarak
+                                    )
+                                ) {
+
+                                    totalPanjang +=
+                                        jarak;
+
+                                }
+
                             }
 
                         }
@@ -2848,12 +2205,12 @@ if (
 
             if (
                 typeof
-                layer_FasilitasKesehatan_2
+                layer_new_layer_2
                 !== "undefined"
             ) {
 
 
-                layer_FasilitasKesehatan_2
+                layer_new_layer_2
                     .eachLayer(
                         function () {
 
@@ -3020,18 +2377,6 @@ if (
     tungguPeta(
         buatDashboard
     );
-
-    /* Jika layer rute terlambat tersedia, dashboard tetap muncul;
-       interaksi rute dimatikan lagi setelah layer selesai. */
-    setTimeout(function () {
-        matikanInteraksiRuteSafe();
-    }, 1000);
-
-    function matikanInteraksiRuteSafe() {
-        if (typeof matikanInteraksiRute === "function") {
-            matikanInteraksiRute();
-        }
-    }
 
 
 })();
@@ -3275,7 +2620,7 @@ var circleGPS = null;
 
 
         if (
-            typeof json_evakuasi_utama_3_4 ===
+            typeof json_evakuasi_utama_3 ===
             "undefined"
         ) {
 
@@ -3284,7 +2629,7 @@ var circleGPS = null;
         }
 
 
-        json_evakuasi_utama_3_4.features
+        json_evakuasi_utama_3.features
             .forEach(function (feature) {
 
                 var p =
@@ -4180,36 +3525,7 @@ console.log(
 
 })();
 </script>
-<div id="mine-survey-about-overlay" aria-hidden="true">
-<div id="mine-survey-about-card" role="dialog" aria-modal="true" aria-labelledby="mine-survey-about-title">
-<div id="mine-survey-about-head"><strong id="mine-survey-about-title">TENTANG MINE SURVEY</strong><button id="mine-survey-about-close" type="button" aria-label="Tutup">&times;</button></div>
-<div id="mine-survey-about-body">
-<img id="mine-survey-about-photo" src="mine-survey.jpg" alt="Kegiatan Mine Survey" onerror="this.style.display='none';">
-<h3>MINE SURVEY</h3>
-<p>Mine Survey merupakan bagian penting dalam kegiatan pertambangan yang menyediakan data dan informasi spasial sebagai dasar perencanaan, pelaksanaan, pengawasan, serta pengendalian kegiatan operasional tambang.</p>
-<p>Melalui pengukuran dan pemetaan kondisi aktual area tambang, Mine Survey membantu memastikan posisi, elevasi, batas area, kemajuan pekerjaan, serta kondisi lapangan dapat diketahui secara akurat.</p>
-<h3>MINE SURVEY &amp; KESELAMATAN</h3>
-<p>Informasi hasil survey mendukung pengambilan keputusan yang tepat dan membantu kegiatan operasional berjalan sesuai kondisi lapangan serta rencana yang telah ditetapkan.</p>
-<ul><li>Pengendalian area kerja dan batas-batas operasional.</li><li>Penyediaan informasi posisi dan elevasi area maupun fasilitas.</li><li>Pemetaan kondisi aktual dan perubahan area tambang.</li><li>Penyediaan informasi spasial untuk mendukung pengambilan keputusan.</li><li>Dukungan informasi jalur dan area evakuasi.</li><li>Koordinasi antara surveyor, pengawas, dan tim operasional.</li></ul>
-<div class="mine-survey-quote">“Data yang akurat mendukung keputusan yang tepat, dan keputusan yang tepat mendukung keselamatan.”</div>
-<h3>LINGKUP MINE SURVEY</h3>
-<ul><li>Pengukuran dan pemetaan kondisi aktual.</li><li>Pemantauan posisi dan elevasi.</li><li>Penyediaan data spasial untuk kegiatan operasional.</li><li>Koordinasi data survey untuk kebutuhan perencanaan dan pengawasan.</li><li>Dukungan informasi keselamatan dan evakuasi.</li></ul>
-<h3>STRUKTUR MINE SURVEY 2026</h3>
-<p>Struktur berikut mengikuti istilah yang tercantum pada dokumen Mine Survey 2026 yang diberikan.</p>
-<div class="mine-survey-structure"><div><b>MPD / MINE SURVEY</b><br>Struktur Mine Survey 2026</div><div><b>SURFACE &amp; UNDERGROUND</b><br>Lingkup kegiatan survey</div><div><b>SURVEY COORDINATION</b><br>Koordinasi kegiatan survey</div><div><b>TEAM HEAD</b><br>Pengelolaan tim</div><div><b>SURVEYOR</b><br>Pelaksanaan kegiatan pengukuran dan survey</div><div><b>PENGAWAS / SURVEYOR</b><br>Fungsi pengawasan dan survey</div></div>
-</div></div></div>
-<script id="mine-survey-about-script">
-(function(){
-function openAbout(){var e=document.getElementById("mine-survey-about-overlay");if(e){e.classList.add("is-open");e.setAttribute("aria-hidden","false");}}
-function closeAbout(){var e=document.getElementById("mine-survey-about-overlay");if(e){e.classList.remove("is-open");e.setAttribute("aria-hidden","true");}}
-document.addEventListener("click",function(e){
-var t=e.target,menu=t&&t.closest?t.closest(".sidebar-menu"):null;
-if(menu&&(menu.textContent||"").trim().toLowerCase()==="tentang"){e.preventDefault();e.stopPropagation();openAbout();return;}
-if(t&&t.id==="mine-survey-about-close"){e.preventDefault();closeAbout();return;}
-var o=document.getElementById("mine-survey-about-overlay");if(o&&t===o)closeAbout();
-},true);
-document.addEventListener("keydown",function(e){if(e.key==="Escape")closeAbout();});
-})();
-</script>
+
 </body>
 </html>
+  
