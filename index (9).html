@@ -1,0 +1,4203 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
+        <link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet.photon.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    
+        <style>
+
+/* =========================================================
+   DASHBOARD ANTAM - STYLE INDEX 5
+   ========================================================= */
+
+:root {
+    --antam-dark: #001f1f;
+    --antam-dark-2: #003b3b;
+    --antam-teal: #00a6a6;
+    --antam-gold: #f5b400;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+#dashboard-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 90px;
+
+    background: linear-gradient(
+        135deg,
+        #001f1f,
+        #003b3b
+    );
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 24px;
+    box-sizing: border-box;
+
+    z-index: 9000;
+
+    border-bottom: 2px solid #00a6a6;
+}
+
+
+/* JUDUL */
+
+#dashboard-title {
+    margin-left: 65px;
+}
+
+#dashboard-title h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+#dashboard-title p {
+    margin: 5px 0 0;
+    font-size: 13px;
+    opacity: .8;
+}
+
+
+/* JAM */
+
+#dashboard-datetime {
+    margin-left: auto;
+    text-align: right;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+#sidebar {
+
+    position: fixed;
+
+    top: 90px;
+    left: 0;
+    bottom: 0;
+
+    width: 270px;
+
+    background: rgba(0,31,38,.97);
+
+    color: white;
+
+    z-index: 8500;
+
+    overflow-y: auto;
+
+    transition: transform .3s ease;
+
+    box-shadow:
+        3px 0 15px rgba(0,0,0,.25);
+
+    box-sizing: border-box;
+
+    padding-bottom: 30px;
+}
+
+
+/* SIDEBAR CLOSED */
+
+#sidebar.dashboard-hidden {
+    transform: translateX(-270px);
+}
+
+
+/* =========================================================
+   BUTTON SIDEBAR
+   ========================================================= */
+
+#sidebar-toggle {
+
+    position: fixed;
+
+    left: 15px;
+    top: 20px;
+
+    width: 45px;
+    height: 45px;
+
+    z-index: 99999;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #001f26;
+
+    color: white;
+
+    border:
+        1px solid rgba(0,255,255,.3);
+
+    border-radius: 7px;
+
+    font-size: 25px;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+#sidebar-header {
+
+    height: 100px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.1);
+}
+
+#sidebar-logo {
+
+    width: 150px;
+    height: 75px;
+
+    object-fit: contain;
+}
+
+
+/* =========================================================
+   SIDEBAR SECTION
+   ========================================================= */
+
+.sidebar-section {
+
+    padding:
+        15px 17px 5px;
+}
+
+
+.sidebar-title {
+
+    color: #00a6a6;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 9px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   MENU
+   ========================================================= */
+
+.sidebar-menu {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 9px 10px;
+
+    margin-bottom: 3px;
+
+    border-radius: 6px;
+
+    font-size: 13px;
+
+    cursor: pointer;
+}
+
+
+.sidebar-menu:hover,
+.sidebar-menu.active {
+
+    background:
+        rgba(0,166,166,.18);
+}
+
+
+/* =========================================================
+   FILTER ROW
+   ========================================================= */
+
+.filter-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 7px 0;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   SWITCH
+   ========================================================= */
+
+.switch {
+
+    position: relative;
+
+    width: 38px;
+    height: 20px;
+}
+
+
+.switch input {
+
+    display: none;
+}
+
+
+.slider {
+
+    position: absolute;
+
+    inset: 0;
+
+    background: #555;
+
+    border-radius: 20px;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+
+.slider:before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 16px;
+    height: 16px;
+
+    left: 2px;
+    top: 2px;
+
+    background: white;
+
+    border-radius: 50%;
+
+    transition: .2s;
+}
+
+
+.switch input:checked + .slider {
+
+    background: #00a6a6;
+}
+
+
+.switch input:checked
++ .slider:before {
+
+    transform:
+        translateX(18px);
+}
+
+
+/* =========================================================
+   FILTER
+   ========================================================= */
+
+#rute-evakuasi-filter,
+#rute-sementara-filter {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 8px;
+
+    border-radius: 5px;
+
+    border:
+        1px solid #477;
+
+    background: #002b2b;
+
+    color: white;
+}
+
+
+/* =========================================================
+   INFORMASI DARURAT
+   ========================================================= */
+
+.emergency-box {
+
+    background:
+        rgba(0,60,60,.45);
+
+    border:
+        1px solid rgba(0,166,166,.35);
+
+    border-radius: 7px;
+
+    padding: 10px;
+}
+
+
+.emergency-title {
+
+    color: #f5b400;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    line-height: 1.5;
+
+    margin-bottom: 8px;
+}
+
+
+.emergency-item {
+
+    padding: 7px 0;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.08);
+}
+
+
+.emergency-item:last-child {
+
+    border-bottom: none;
+}
+
+
+.emergency-label {
+
+    color: #ffffff;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+.emergency-number {
+
+    color: #00d4d4;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    margin-top: 2px;
+}
+
+
+.emergency-note {
+
+    color: #aaa;
+
+    font-size: 9px;
+
+    margin-left: 4px;
+}
+
+
+/* =========================================================
+   STATISTIK
+   ========================================================= */
+
+#dashboard-stats {
+
+    position: fixed;
+
+    top: 105px;
+
+    left: 290px;
+
+    right: 20px;
+
+    z-index: 8000;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap: 12px;
+
+  pointer-events: auto;
+}
+
+
+.stat-card {
+
+    background:
+        rgba(255,255,255,.95);
+
+    border-radius: 9px;
+
+    border-left:
+        4px solid #00a6a6;
+
+    padding: 10px 14px;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,.18);
+}
+
+
+.stat-title {
+
+    font-size: 10px;
+
+    color: #607070;
+
+    font-weight: bold;
+
+    text-transform: uppercase;
+}
+
+
+.stat-value {
+
+    margin-top: 4px;
+
+    font-size: 19px;
+
+    color: #003b3b;
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media(max-width:900px) {
+
+    #dashboard-stats {
+
+        left: 285px;
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+}
+
+
+@media(max-width:650px) {
+
+    #dashboard-title h1 {
+
+        font-size: 15px;
+    }
+
+
+    #dashboard-title p {
+
+        display: none;
+    }
+
+
+    #dashboard-stats {
+
+        left: 10px;
+
+        right: 10px;
+
+        top: 100px;
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+}
+/* =========================================================
+   NAVIGASI REAL-TIME
+   ========================================================= */
+
+.navigation-card {
+    border-left: 4px solid #f5b400;
+}
+
+.navigation-button {
+    width: 100%;
+    border: none;
+    border-radius: 6px;
+    padding: 7px 10px;
+    margin-top: 5px;
+
+    background: #00a6a6;
+    color: white;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    cursor: pointer;
+    transition: .2s;
+}
+
+.navigation-button:hover {
+    background: #008b8b;
+}
+
+.navigation-button.stop {
+    background: #d62828;
+}
+
+.navigation-button.stop:hover {
+    background: #b71c1c;
+}
+
+/* Marker GPS */
+
+.user-location-marker {
+    width: 18px;
+    height: 18px;
+
+    background: #008cff;
+
+    border: 3px solid white;
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 0 6px rgba(0,140,255,.25),
+        0 2px 8px rgba(0,0,0,.35);
+}
+
+/* Garis rute navigasi */
+
+.navigation-route {
+    color: #00a6a6;
+    weight: 6;
+    opacity: .85;
+}
+
+/* Garis progress */
+
+.navigation-progress {
+    color: #00a6a6;
+    weight: 8;
+    opacity: 1;
+}
+.gps-user-marker {
+    background: transparent !important;
+    border: none !important;
+}
+
+.gps-user-dot {
+    width: 30px;
+    height: 30px;
+
+    border-radius: 50%;
+
+    background: #00a6a6;
+
+    border: 3px solid white;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    box-shadow:
+        0 2px 8px rgba(0,0,0,.5);
+}
+
+.gps-user-arrow {
+    color: white;
+    font-size: 14px;
+}
+</style>
+    <style id="mine-survey-about-style">
+#mine-survey-about-overlay{position:fixed;inset:0;z-index:999999;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.55);padding:20px;box-sizing:border-box}
+#mine-survey-about-overlay.is-open{display:flex}
+#mine-survey-about-card{width:min(900px,94vw);max-height:90vh;overflow:auto;background:#fff;border-radius:12px;box-shadow:0 18px 60px rgba(0,0,0,.35);color:#173333;font-family:Arial,sans-serif}
+#mine-survey-about-head{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:#003535;color:#fff}
+#mine-survey-about-head strong{font-size:18px}
+#mine-survey-about-close{border:0;background:transparent;color:#fff;font-size:26px;line-height:1;cursor:pointer}
+#mine-survey-about-body{padding:18px 20px 24px}
+#mine-survey-about-photo{width:100%;max-height:330px;object-fit:cover;display:block;border-radius:9px;margin-bottom:18px}
+#mine-survey-about-body h3{margin:18px 0 8px;color:#003535;font-size:16px}
+#mine-survey-about-body p{margin:0 0 10px;line-height:1.65;font-size:13px}
+#mine-survey-about-body ul{margin:6px 0 12px 20px;padding:0;line-height:1.65;font-size:13px}
+.mine-survey-quote{margin:16px 0;padding:12px 14px;border-left:4px solid #00a6a6;background:#eef7f7;border-radius:4px;font-weight:600}
+.mine-survey-structure{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:9px;margin-top:10px}
+.mine-survey-structure div{padding:10px;border:1px solid #d5e1e1;border-radius:7px;background:#f7fafa;font-size:12px;line-height:1.45}
+</style>
+</head>
+<body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/L.Control.Layers.Tree.min.js"></script>
+        <script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/multi-style-layer.js"></script>
+        <script src="js/leaflet-svg-shape-markers.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet.photon.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="data/TITIK_KUMPUL_Sementara_1.js"></script>
+        <script src="data/FasilitasKesehatan_2.js"></script>
+        <script src="data/JALUR_TITIK_KUMPUL_3.js"></script>
+        <script src="data/evakuasi_utama_3_4.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+
+            if (e.target.feature.geometry.type === 'LineString' || e.target.feature.geometry.type === 'MultiLineString') {
+              highlightLayer.setStyle({
+                color: 'rgba(255, 255, 0, 1.00)',
+              });
+            } else {
+              highlightLayer.setStyle({
+                fillColor: 'rgba(255, 255, 0, 1.00)',
+                fillOpacity: 1
+              });
+            }
+        }
+        var map = L.map('map', {
+            zoomControl:false, maxZoom:28, minZoom:8
+        }).fitBounds([[-6.684066002531283,106.53662349192211],[-6.630515780933659,106.61805571178635]]);
+        map.attributionControl.setPrefix('<a href="https://github.com/qgis2web/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        // remove popup's row if "visible-with-data"
+        function removeEmptyRowsFromPopupContent(content, feature) {
+         var tempDiv = document.createElement('div');
+         tempDiv.innerHTML = content;
+         var rows = tempDiv.querySelectorAll('tr');
+         for (var i = 0; i < rows.length; i++) {
+             var td = rows[i].querySelector('td.visible-with-data');
+             var key = td ? td.id : '';
+             if (td && td.classList.contains('visible-with-data') && feature.properties[key] == null) {
+                 rows[i].parentNode.removeChild(rows[i]);
+             }
+         }
+         return tempDiv.innerHTML;
+        }
+        // modify popup if contains media
+        function addClassToPopupIfMedia(content, popup) {
+            var tempDiv = document.createElement('div');
+            tempDiv.innerHTML = content;
+            var imgTd = tempDiv.querySelector('td img');
+            if (imgTd) {
+                var src = imgTd.getAttribute('src');
+                if (/\.(jpg|jpeg|png|gif|bmp|webp|avif)$/i.test(src)) {
+                    popup._contentNode.classList.add('media');
+                    var img = popup._contentNode.querySelector('td img');
+                    if (img) {
+                        // If already loaded (cache), update immediately
+                        if (img.complete && img.naturalHeight > 0) {
+                            popup.update();
+                        } else {
+                            img.addEventListener('load', function() {
+                                popup.update();
+                            });
+                            img.addEventListener('error', function() {
+                                popup.update();
+                            });
+                        }
+                    }
+                } else if (/\.(mp3|wav|ogg|aac)$/i.test(src)) {
+                    var audio = document.createElement('audio');
+                    audio.controls = true;
+                    audio.src = src;
+                    imgTd.parentNode.replaceChild(audio, imgTd);
+                    popup._contentNode.classList.add('media');
+                    setTimeout(function() {
+                        popup.setContent(tempDiv.innerHTML);
+                        popup.update();
+                    }, 10);
+                } else if (/\.(mp4|webm|ogg|mov)$/i.test(src)) {
+                    var video = document.createElement('video');
+                    video.controls = true;
+                    video.src = src;
+                    video.style.width = "400px";
+                    video.style.height = "300px";
+                    video.style.maxHeight = "60vh";
+                    video.style.maxWidth = "60vw";
+                    imgTd.parentNode.replaceChild(video, imgTd);
+                    popup._contentNode.classList.add('media');
+                    // Aggiorna il popup quando il video carica i metadati
+                    video.addEventListener('loadedmetadata', function() {
+                        popup.update();
+                    });
+                    setTimeout(function() {
+                        popup.setContent(tempDiv.innerHTML);
+                        popup.update();
+                    }, 10);
+                } else {
+                    popup._contentNode.classList.remove('media');
+                }
+            } else {
+                popup._contentNode.classList.remove('media');
+            }
+        }
+        var zoomControl = L.control.zoom({
+            position: 'topleft'
+        }).addTo(map);
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0].innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0].className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_GoogleSatelit_0');
+        map.getPane('pane_GoogleSatelit_0').style.zIndex = 400;
+        var layer_GoogleSatelit_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleSatelit_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 8,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 18
+        });
+        layer_GoogleSatelit_0;
+        map.addLayer(layer_GoogleSatelit_0);
+        function pop_TITIK_KUMPUL_Sementara_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (var i in e.target._eventParents) {
+                        if (typeof e.target._eventParents[i].resetStyle === 'function') {
+                            e.target._eventParents[i].resetStyle(e.target);
+                        }
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Field1</th>\
+                        <td class="visible-with-data" id="Field1">' + (feature.properties['Field1'] !== null ? autolinker.link(String(feature.properties['Field1']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_TITIK_KUMPUL_Sementara_1_0(feature) {
+            switch(String(feature.properties['Field1'])) {
+                case 'ADMIN':
+                    return {
+                pane: 'pane_TITIK_KUMPUL_Sementara_1',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/TITIK_KUMPUL_Sementara_1.svg',
+            iconSize: [21.279999999999998, 21.279999999999998]
+        }),
+                interactive: true,
+            }
+                    break;
+                case 'GFA':
+                    return {
+                pane: 'pane_TITIK_KUMPUL_Sementara_1',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/TITIK_KUMPUL_Sementara_1.svg',
+            iconSize: [21.279999999999998, 21.279999999999998]
+        }),
+                interactive: true,
+            }
+                    break;
+                case 'GUDANG':
+                    return {
+                pane: 'pane_TITIK_KUMPUL_Sementara_1',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/TITIK_KUMPUL_Sementara_1.svg',
+            iconSize: [21.279999999999998, 21.279999999999998]
+        }),
+                interactive: true,
+            }
+                    break;
+                case 'GUDANG HANDAK UTAMA':
+                    return {
+                pane: 'pane_TITIK_KUMPUL_Sementara_1',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/TITIK_KUMPUL_Sementara_1.svg',
+            iconSize: [21.279999999999998, 21.279999999999998]
+        }),
+                interactive: true,
+            }
+                    break;
+                case 'GUDANGGEOMIN':
+                    return {
+                pane: 'pane_TITIK_KUMPUL_Sementara_1',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/TITIK_KUMPUL_Sementara_1.svg',
+            iconSize: [21.279999999999998, 21.279999999999998]
+        }),
+                interactive: true,
+            }
+                    break;
+                case 'KANTOR GEOMIN':
+                    return {
+                pane: 'pane_TITIK_KUMPUL_Sementara_1',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/TITIK_KUMPUL_Sementara_1.svg',
+            iconSize: [21.279999999999998, 21.279999999999998]
+        }),
+                interactive: true,
+            }
+                    break;
+                case 'KANTOR TAMBANG':
+                    return {
+                pane: 'pane_TITIK_KUMPUL_Sementara_1',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/TITIK_KUMPUL_Sementara_1.svg',
+            iconSize: [21.279999999999998, 21.279999999999998]
+        }),
+                interactive: true,
+            }
+                    break;
+                case 'KAWACI':
+                    return {
+                pane: 'pane_TITIK_KUMPUL_Sementara_1',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/TITIK_KUMPUL_Sementara_1.svg',
+            iconSize: [21.279999999999998, 21.279999999999998]
+        }),
+                interactive: true,
+            }
+                    break;
+                case 'L.600':
+                    return {
+                pane: 'pane_TITIK_KUMPUL_Sementara_1',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/TITIK_KUMPUL_Sementara_1.svg',
+            iconSize: [21.279999999999998, 21.279999999999998]
+        }),
+                interactive: true,
+            }
+                    break;
+                case 'PENGOLAHAN':
+                    return {
+                pane: 'pane_TITIK_KUMPUL_Sementara_1',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/TITIK_KUMPUL_Sementara_1.svg',
+            iconSize: [21.279999999999998, 21.279999999999998]
+        }),
+                interactive: true,
+            }
+                    break;
+                case 'SEMEN SILO':
+                    return {
+                pane: 'pane_TITIK_KUMPUL_Sementara_1',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/TITIK_KUMPUL_Sementara_1.svg',
+            iconSize: [21.279999999999998, 21.279999999999998]
+        }),
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_TITIK_KUMPUL_Sementara_1',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/TITIK_KUMPUL_Sementara_1.svg',
+            iconSize: [21.279999999999998, 21.279999999999998]
+        }),
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_TITIK_KUMPUL_Sementara_1');
+        map.getPane('pane_TITIK_KUMPUL_Sementara_1').style.zIndex = 401;
+        map.getPane('pane_TITIK_KUMPUL_Sementara_1').style['mix-blend-mode'] = 'normal';
+        var layer_TITIK_KUMPUL_Sementara_1 = new L.geoJson(json_TITIK_KUMPUL_Sementara_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_TITIK_KUMPUL_Sementara_1',
+            layerName: 'layer_TITIK_KUMPUL_Sementara_1',
+            pane: 'pane_TITIK_KUMPUL_Sementara_1',
+            onEachFeature: pop_TITIK_KUMPUL_Sementara_1,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_TITIK_KUMPUL_Sementara_1_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_TITIK_KUMPUL_Sementara_1);
+        map.addLayer(layer_TITIK_KUMPUL_Sementara_1);
+        function pop_FasilitasKesehatan_2(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (var i in e.target._eventParents) {
+                        if (typeof e.target._eventParents[i].resetStyle === 'function') {
+                            e.target._eventParents[i].resetStyle(e.target);
+                        }
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Faskes</th>\
+                        <td class="visible-with-data" id="Faskes">' + (feature.properties['Faskes'] !== null ? autolinker.link(String(feature.properties['Faskes']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_FasilitasKesehatan_2_0() {
+            return {
+                pane: 'pane_FasilitasKesehatan_2',
+                radius: 10.4,
+                opacity: 1,
+                color: 'rgba(227,26,28,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,255,1.0)',
+                interactive: true,
+            }
+        }
+        function style_FasilitasKesehatan_2_1() {
+            return {
+                pane: 'pane_FasilitasKesehatan_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(227,26,28,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(227,26,28,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_FasilitasKesehatan_2');
+        map.getPane('pane_FasilitasKesehatan_2').style.zIndex = 402;
+        map.getPane('pane_FasilitasKesehatan_2').style['mix-blend-mode'] = 'normal';
+        var layer_FasilitasKesehatan_2 = new L.geoJson.multiStyle(json_FasilitasKesehatan_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_FasilitasKesehatan_2',
+            layerName: 'layer_FasilitasKesehatan_2',
+            pane: 'pane_FasilitasKesehatan_2',
+            onEachFeature: pop_FasilitasKesehatan_2,
+            pointToLayers: [function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_FasilitasKesehatan_2_0(feature));
+            },function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_FasilitasKesehatan_2_1(feature));
+            },
+        ]});
+        bounds_group.addLayer(layer_FasilitasKesehatan_2);
+        map.addLayer(layer_FasilitasKesehatan_2);
+        function pop_JALUR_TITIK_KUMPUL_3(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (var i in e.target._eventParents) {
+                        if (typeof e.target._eventParents[i].resetStyle === 'function') {
+                            e.target._eventParents[i].resetStyle(e.target);
+                        }
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Keterangan</th>\
+                        <td class="visible-with-data" id="Keterangan">' + (feature.properties['Keterangan'] !== null ? autolinker.link(String(feature.properties['Keterangan']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_JALUR_TITIK_KUMPUL_3_0(feature) {
+            switch(String(feature.properties['Keterangan'])) {
+                case 'Jalur Evakuasi Ke Titik Kumpul  Admin':
+                    return {
+                pane: 'pane_JALUR_TITIK_KUMPUL_3',
+                interactive: true,
+            }
+                    break;
+                case 'Jalur Evakuasi Ke Titik Kumpul  Gudang':
+                    return {
+                pane: 'pane_JALUR_TITIK_KUMPUL_3',
+                interactive: true,
+            }
+                    break;
+                case 'Jalur Evakuasi Ke Titik Kumpul Admin':
+                    return {
+                pane: 'pane_JALUR_TITIK_KUMPUL_3',
+                interactive: true,
+            }
+                    break;
+                case 'Jalur Evakuasi Ke Titik Kumpul GFA':
+                    return {
+                pane: 'pane_JALUR_TITIK_KUMPUL_3',
+                interactive: true,
+            }
+                    break;
+                case 'Jalur Evakuasi Ke Titik Kumpul Gudang':
+                    return {
+                pane: 'pane_JALUR_TITIK_KUMPUL_3',
+                interactive: true,
+            }
+                    break;
+                case 'Jalur Evakuasi Ke Titik Kumpul Gudang Geomin':
+                    return {
+                pane: 'pane_JALUR_TITIK_KUMPUL_3',
+                interactive: true,
+            }
+                    break;
+                case 'Jalur Evakuasi Ke Titik Kumpul Kantor Geomin':
+                    return {
+                pane: 'pane_JALUR_TITIK_KUMPUL_3',
+                interactive: true,
+            }
+                    break;
+                case 'Jalur Evakuasi Ke Titik Kumpul Kantor Tambang':
+                    return {
+                pane: 'pane_JALUR_TITIK_KUMPUL_3',
+                interactive: true,
+            }
+                    break;
+                case 'Jalur Evakuasi Ke Titik Kumpul Kawaci':
+                    return {
+                pane: 'pane_JALUR_TITIK_KUMPUL_3',
+                interactive: true,
+            }
+                    break;
+                case 'Jalur Evakuasi Ke Titik Kumpul L.600':
+                    return {
+                pane: 'pane_JALUR_TITIK_KUMPUL_3',
+                interactive: true,
+            }
+                    break;
+                case 'Jalur Evakuasi Ke Titik Kumpul Pengolahan':
+                    return {
+                pane: 'pane_JALUR_TITIK_KUMPUL_3',
+                interactive: true,
+            }
+                    break;
+                case 'Jalur Evakuasi Ke Titik Kumpul Semen Silo':
+                    return {
+                pane: 'pane_JALUR_TITIK_KUMPUL_3',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_JALUR_TITIK_KUMPUL_3',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_JALUR_TITIK_KUMPUL_3');
+        map.getPane('pane_JALUR_TITIK_KUMPUL_3').style.zIndex = 403;
+        map.getPane('pane_JALUR_TITIK_KUMPUL_3').style['mix-blend-mode'] = 'normal';
+        var layer_JALUR_TITIK_KUMPUL_3 = new L.geoJson(json_JALUR_TITIK_KUMPUL_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_JALUR_TITIK_KUMPUL_3',
+            layerName: 'layer_JALUR_TITIK_KUMPUL_3',
+            pane: 'pane_JALUR_TITIK_KUMPUL_3',
+            onEachFeature: pop_JALUR_TITIK_KUMPUL_3,
+            style: style_JALUR_TITIK_KUMPUL_3_0,
+        });
+        bounds_group.addLayer(layer_JALUR_TITIK_KUMPUL_3);
+        map.addLayer(layer_JALUR_TITIK_KUMPUL_3);
+        function pop_evakuasi_utama_3_4(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (var i in e.target._eventParents) {
+                        if (typeof e.target._eventParents[i].resetStyle === 'function') {
+                            e.target._eventParents[i].resetStyle(e.target);
+                        }
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Lokasi Awal</th>\
+                        <td class="visible-with-data" id="Lokasi Awal">' + (feature.properties['Lokasi Awal'] !== null ? autolinker.link(String(feature.properties['Lokasi Awal']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tujuan</th>\
+                        <td class="visible-with-data" id="Tujuan">' + (feature.properties['Tujuan'] !== null ? autolinker.link(String(feature.properties['Tujuan']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Jarak Jalur Evakuasi</th>\
+                        <td class="visible-with-data" id="Jarak Jalur Evakuasi">' + (feature.properties['Jarak Jalur Evakuasi'] !== null ? autolinker.link(String(feature.properties['Jarak Jalur Evakuasi']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_evakuasi_utama_3_4_0(feature) {
+            switch(String(feature.properties['Titik Awal'])) {
+                case 'GUDANG HANDAK UTAMA':
+                    return {
+                pane: 'pane_evakuasi_utama_3_4',
+                interactive: true,
+            }
+                    break;
+                case 'ADMIN':
+                    return {
+                pane: 'pane_evakuasi_utama_3_4',
+                interactive: true,
+            }
+                    break;
+                case 'GFA':
+                    return {
+                pane: 'pane_evakuasi_utama_3_4',
+                interactive: true,
+            }
+                    break;
+                case 'GUDANG':
+                    return {
+                pane: 'pane_evakuasi_utama_3_4',
+                interactive: true,
+            }
+                    break;
+                case 'GUDANGGEOMIN':
+                    return {
+                pane: 'pane_evakuasi_utama_3_4',
+                interactive: true,
+            }
+                    break;
+                case 'KANTOR GEOMIN':
+                    return {
+                pane: 'pane_evakuasi_utama_3_4',
+                interactive: true,
+            }
+                    break;
+                case 'KANTOR TAMBANG':
+                    return {
+                pane: 'pane_evakuasi_utama_3_4',
+                interactive: true,
+            }
+                    break;
+                case 'KAWACI':
+                    return {
+                pane: 'pane_evakuasi_utama_3_4',
+                interactive: true,
+            }
+                    break;
+                case 'L.600':
+                    return {
+                pane: 'pane_evakuasi_utama_3_4',
+                interactive: true,
+            }
+                    break;
+                case 'PENGOLAHAN':
+                    return {
+                pane: 'pane_evakuasi_utama_3_4',
+                interactive: true,
+            }
+                    break;
+                case 'SEMEN SILO':
+                    return {
+                pane: 'pane_evakuasi_utama_3_4',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_evakuasi_utama_3_4');
+        map.getPane('pane_evakuasi_utama_3_4').style.zIndex = 404;
+        map.getPane('pane_evakuasi_utama_3_4').style['mix-blend-mode'] = 'normal';
+        var layer_evakuasi_utama_3_4 = new L.geoJson(json_evakuasi_utama_3_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_evakuasi_utama_3_4',
+            layerName: 'layer_evakuasi_utama_3_4',
+            pane: 'pane_evakuasi_utama_3_4',
+            onEachFeature: pop_evakuasi_utama_3_4,
+            style: style_evakuasi_utama_3_4_0,
+        });
+        bounds_group.addLayer(layer_evakuasi_utama_3_4);
+        map.addLayer(layer_evakuasi_utama_3_4);
+        var overlaysTree = [
+            {label: 'evakuasi_utama_3<br /><table><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_4_0.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_4_ADMIN1.png" /></td><td>ADMIN</td></tr><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_4_GFA2.png" /></td><td>GFA</td></tr><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_4_GUDANG3.png" /></td><td>GUDANG</td></tr><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_4_GUDANGGEOMIN4.png" /></td><td>GUDANGGEOMIN</td></tr><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_4_KANTORGEOMIN5.png" /></td><td>KANTOR GEOMIN</td></tr><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_4_KANTORTAMBANG6.png" /></td><td>KANTOR TAMBANG</td></tr><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_4_KAWACI7.png" /></td><td>KAWACI</td></tr><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_4_L6008.png" /></td><td>L.600</td></tr><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_4_PENGOLAHAN9.png" /></td><td>PENGOLAHAN</td></tr><tr><td style="text-align: center;"><img src="legend/evakuasi_utama_3_4_SEMENSILO10.png" /></td><td>SEMEN SILO</td></tr></table>', layer: layer_evakuasi_utama_3_4},
+            {label: 'JALUR_TITIK_KUMPUL<br /><table><tr><td style="text-align: center;"><img src="legend/JALUR_TITIK_KUMPUL_3_JalurEvakuasiKeTitikKumpulAdmin0.png" /></td><td>Jalur Evakuasi Ke Titik Kumpul  Admin</td></tr><tr><td style="text-align: center;"><img src="legend/JALUR_TITIK_KUMPUL_3_JalurEvakuasiKeTitikKumpulGudang1.png" /></td><td>Jalur Evakuasi Ke Titik Kumpul  Gudang</td></tr><tr><td style="text-align: center;"><img src="legend/JALUR_TITIK_KUMPUL_3_JalurEvakuasiKeTitikKumpulAdmin2.png" /></td><td>Jalur Evakuasi Ke Titik Kumpul Admin</td></tr><tr><td style="text-align: center;"><img src="legend/JALUR_TITIK_KUMPUL_3_JalurEvakuasiKeTitikKumpulGFA3.png" /></td><td>Jalur Evakuasi Ke Titik Kumpul GFA</td></tr><tr><td style="text-align: center;"><img src="legend/JALUR_TITIK_KUMPUL_3_JalurEvakuasiKeTitikKumpulGudang4.png" /></td><td>Jalur Evakuasi Ke Titik Kumpul Gudang</td></tr><tr><td style="text-align: center;"><img src="legend/JALUR_TITIK_KUMPUL_3_JalurEvakuasiKeTitikKumpulGudangGeomin5.png" /></td><td>Jalur Evakuasi Ke Titik Kumpul Gudang Geomin</td></tr><tr><td style="text-align: center;"><img src="legend/JALUR_TITIK_KUMPUL_3_JalurEvakuasiKeTitikKumpulKantorGeomin6.png" /></td><td>Jalur Evakuasi Ke Titik Kumpul Kantor Geomin</td></tr><tr><td style="text-align: center;"><img src="legend/JALUR_TITIK_KUMPUL_3_JalurEvakuasiKeTitikKumpulKantorTambang7.png" /></td><td>Jalur Evakuasi Ke Titik Kumpul Kantor Tambang</td></tr><tr><td style="text-align: center;"><img src="legend/JALUR_TITIK_KUMPUL_3_JalurEvakuasiKeTitikKumpulKawaci8.png" /></td><td>Jalur Evakuasi Ke Titik Kumpul Kawaci</td></tr><tr><td style="text-align: center;"><img src="legend/JALUR_TITIK_KUMPUL_3_JalurEvakuasiKeTitikKumpulL6009.png" /></td><td>Jalur Evakuasi Ke Titik Kumpul L.600</td></tr><tr><td style="text-align: center;"><img src="legend/JALUR_TITIK_KUMPUL_3_JalurEvakuasiKeTitikKumpulPengolahan10.png" /></td><td>Jalur Evakuasi Ke Titik Kumpul Pengolahan</td></tr><tr><td style="text-align: center;"><img src="legend/JALUR_TITIK_KUMPUL_3_JalurEvakuasiKeTitikKumpulSemenSilo11.png" /></td><td>Jalur Evakuasi Ke Titik Kumpul Semen Silo</td></tr><tr><td style="text-align: center;"><img src="legend/JALUR_TITIK_KUMPUL_3_12.png" /></td><td></td></tr></table>', layer: layer_JALUR_TITIK_KUMPUL_3},
+            {label: '<img src="legend/FasilitasKesehatan_2.png" /> Fasilitas Kesehatan', layer: layer_FasilitasKesehatan_2},
+            {label: 'TITIK_KUMPUL_Sementara<br /><table><tr><td style="text-align: center;"><img src="legend/TITIK_KUMPUL_Sementara_1_ADMIN0.png" /></td><td>ADMIN</td></tr><tr><td style="text-align: center;"><img src="legend/TITIK_KUMPUL_Sementara_1_GFA1.png" /></td><td>GFA</td></tr><tr><td style="text-align: center;"><img src="legend/TITIK_KUMPUL_Sementara_1_GUDANG2.png" /></td><td>GUDANG</td></tr><tr><td style="text-align: center;"><img src="legend/TITIK_KUMPUL_Sementara_1_GUDANGHANDAKUTAMA3.png" /></td><td>GUDANG HANDAK UTAMA</td></tr><tr><td style="text-align: center;"><img src="legend/TITIK_KUMPUL_Sementara_1_GUDANGGEOMIN4.png" /></td><td>GUDANGGEOMIN</td></tr><tr><td style="text-align: center;"><img src="legend/TITIK_KUMPUL_Sementara_1_KANTORGEOMIN5.png" /></td><td>KANTOR GEOMIN</td></tr><tr><td style="text-align: center;"><img src="legend/TITIK_KUMPUL_Sementara_1_KANTORTAMBANG6.png" /></td><td>KANTOR TAMBANG</td></tr><tr><td style="text-align: center;"><img src="legend/TITIK_KUMPUL_Sementara_1_KAWACI7.png" /></td><td>KAWACI</td></tr><tr><td style="text-align: center;"><img src="legend/TITIK_KUMPUL_Sementara_1_L6008.png" /></td><td>L.600</td></tr><tr><td style="text-align: center;"><img src="legend/TITIK_KUMPUL_Sementara_1_PENGOLAHAN9.png" /></td><td>PENGOLAHAN</td></tr><tr><td style="text-align: center;"><img src="legend/TITIK_KUMPUL_Sementara_1_SEMENSILO10.png" /></td><td>SEMEN SILO</td></tr><tr><td style="text-align: center;"><img src="legend/TITIK_KUMPUL_Sementara_1_11.png" /></td><td></td></tr></table>', layer: layer_TITIK_KUMPUL_Sementara_1},
+            {label: "Google Satelit", layer: layer_GoogleSatelit_0},]
+        var lay = L.control.layers.tree(null, overlaysTree,{
+            //namedToggle: true,
+            //selectorBack: false,
+            //closedSymbol: '&#8862; &#x1f5c0;',
+            //openedSymbol: '&#8863; &#x1f5c1;',
+            //collapseAll: 'Collapse all',
+            //expandAll: 'Expand all',
+            collapsed: true,
+        });
+        lay.addTo(map);
+        setBounds();
+        resetLabels([layer_TITIK_KUMPUL_Sementara_1]);
+        map.on("zoomend", function(){
+            resetLabels([layer_TITIK_KUMPUL_Sementara_1]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_TITIK_KUMPUL_Sementara_1]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_TITIK_KUMPUL_Sementara_1]);
+        });
+        </script>
+
+<script>
+
+
+/* =========================================================
+   DASHBOARD ANTAM
+   DATA INDEX 4
+   TAMPILAN INDEX 5
+   ========================================================= */
+
+(function () {
+
+    "use strict";
+
+
+    /* =====================================================
+       MENUNGGU PETA
+       ===================================================== */
+
+    function tungguPeta(callback) {
+
+        if (
+            typeof map !== "undefined"
+        ) {
+
+            callback();
+
+            return;
+
+        }
+
+
+        setTimeout(
+            function () {
+
+                tungguPeta(callback);
+
+            },
+            200
+        );
+
+    }
+
+
+    /* =====================================================
+       BUAT DASHBOARD
+       ===================================================== */
+
+    function buatDashboard() {
+
+
+        /* Jangan membuat dashboard dua kali */
+
+        if (
+            document.getElementById(
+                "dashboard-header"
+            )
+        ) {
+
+            return;
+
+        }
+
+
+        /* =================================================
+           BUTTON
+           ================================================= */
+
+        var button =
+            document.createElement(
+                "button"
+            );
+
+
+        button.id =
+            "sidebar-toggle";
+
+
+        button.innerHTML =
+            "☰";
+
+
+        button.title =
+            "Tampilkan / sembunyikan dashboard";
+
+
+        document.body.appendChild(
+            button
+        );
+
+
+        /* =================================================
+           SIDEBAR
+           ================================================= */
+
+        var sidebar =
+            document.createElement(
+                "div"
+            );
+
+
+        sidebar.id =
+            "sidebar";
+
+
+        sidebar.innerHTML = `
+
+            <div id="sidebar-header">
+
+                <img
+                    id="sidebar-logo"
+                    alt="Logo Antam"
+                >
+
+            </div>
+
+
+            <!-- ================= MENU ================= -->
+
+            <div class="sidebar-section">
+
+                <div class="sidebar-title">
+                    MENU
+                </div>
+
+
+                <div class="sidebar-menu active">
+
+                    <span>⌂</span>
+
+                    <span>
+                        Dashboard
+                    </span>
+
+                </div>
+
+
+                <div class="sidebar-menu">
+
+                    <span>🗺</span>
+
+                    <span>
+                        Peta
+                    </span>
+
+                </div>
+
+
+                <div class="sidebar-menu">
+
+                    <span>♟</span>
+
+                    <span>
+                        Jalur Evakuasi
+                    </span>
+
+                </div>
+
+
+                <div class="sidebar-menu">
+
+                    <span>📍</span>
+
+                    <span>
+                        Titik Kumpul
+                    </span>
+
+                </div>
+
+
+                <div class="sidebar-menu">
+
+                    <span>♟</span>
+
+                    <span>
+                        Fasilitas
+                    </span>
+
+                </div>
+
+
+                <div class="sidebar-menu">
+
+                    <span>▤</span>
+
+                    <span>
+                        Data & Tabel
+                    </span>
+
+                </div>
+
+
+                <div class="sidebar-menu">
+
+                    <span>ⓘ</span>
+
+                    <span>
+                        Tentang
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= FILTER LAYER ================= -->
+
+            <div class="sidebar-section">
+
+                <div class="sidebar-title">
+                    FILTER LAYER
+                </div>
+
+
+                <!-- JALUR EVAKUASI -->
+
+                <div class="filter-row">
+
+                    <span>
+                        Jalur Evakuasi
+                    </span>
+
+
+                    <label class="switch">
+
+                        <input
+                            type="checkbox"
+                            id="toggle-rute"
+                            checked
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+
+                <!-- TITIK KUMPUL -->
+
+                <div class="filter-row">
+
+                    <span>
+                        Titik Kumpul
+                    </span>
+
+
+                    <label class="switch">
+
+                        <input
+                            type="checkbox"
+                            id="toggle-kumpul"
+                            checked
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+
+                <!-- FASILITAS -->
+
+                <div class="filter-row">
+
+                    <span>
+                        Fasilitas
+                    </span>
+
+
+                    <label class="switch">
+
+                        <input
+                            type="checkbox"
+                            id="toggle-fasilitas"
+                            checked
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+      <!-- ================= FILTER RUTE EVAKUASI ================= -->
+
+<div class="sidebar-section">
+
+    <div class="sidebar-title">
+        RUTE EVAKUASI UTAMA
+    </div>
+
+    <select
+        id="rute-evakuasi-filter"
+    >
+
+        <option value="SEMUA_RUTE">
+            Semua Rute
+        </option>
+
+    </select>
+
+</div>
+
+
+<!-- ================= RUTE EVAKUASI SEMENTARA ================= -->
+
+<div class="sidebar-section">
+
+    <div class="sidebar-title">
+        RUTE EVAKUASI SEMENTARA
+    </div>
+
+    <select id="rute-sementara-filter">
+
+        <option value="SEMUA_RUTE_SEMENTARA">
+            Semua Rute
+        </option>
+
+    </select>
+
+</div>
+
+
+            <!-- ================= INFORMASI DARURAT ================= -->
+
+            <div class="sidebar-section">
+
+                <div class="sidebar-title">
+                    INFORMASI DARURAT
+                </div>
+
+
+                <div class="emergency-box">
+
+
+                    <div class="emergency-title">
+
+                        ☎ TELEPON / FREKUENSI
+
+                        <br>
+
+                        UNTUK KONDISI DARURAT
+
+                    </div>
+
+
+                    <div class="emergency-item">
+
+                        <div class="emergency-label">
+                            ERG
+                        </div>
+
+                        <div class="emergency-number">
+                            Ext 6666, 6555
+                        </div>
+
+                    </div>
+
+
+                    <div class="emergency-item">
+
+                        <div class="emergency-label">
+                            FREKUENSI RADIO
+                        </div>
+
+                        <div class="emergency-number">
+                            152.350 / 152.000 MHz
+                        </div>
+
+                    </div>
+
+
+                    <div class="emergency-item">
+
+                        <div class="emergency-label">
+
+                            UNIT GAWAT DARURAT
+
+                            <span
+                                class="emergency-note"
+                            >
+                                PUSKES ADMIN
+                            </span>
+
+                        </div>
+
+                        <div class="emergency-number">
+                            Ext 6538
+                        </div>
+
+                    </div>
+
+
+                    <div class="emergency-item">
+
+                        <div class="emergency-label">
+                            AMBULANCE L. 600
+                        </div>
+
+                        <div class="emergency-number">
+                            Ext 6555
+                        </div>
+
+                    </div>
+
+
+                    <div class="emergency-item">
+
+                        <div class="emergency-label">
+                            SECURITY
+                        </div>
+
+                        <div class="emergency-number">
+                            Ext 6711
+                        </div>
+
+                    </div>
+
+
+                    <div class="emergency-item">
+
+                        <div class="emergency-label">
+                            FIRE RESCUE
+                        </div>
+
+                        <div class="emergency-number">
+                            Ext 6666, 6776
+                        </div>
+
+                    </div>
+
+
+                    <div class="emergency-item">
+
+                        <div class="emergency-label">
+                            MONITOR 99
+                        </div>
+
+                        <div class="emergency-number">
+                            Ext 5480, 6615
+                        </div>
+
+                    </div>
+
+
+                    <div class="emergency-item">
+
+                        <div class="emergency-label">
+                            MONITOR 88
+                        </div>
+
+                        <div class="emergency-number">
+                            Ext 6672
+                        </div>
+
+                    </div>
+
+
+                    <div class="emergency-item">
+
+                        <div class="emergency-label">
+                            MONITOR 77
+                        </div>
+
+                        <div class="emergency-number">
+                            Ext 6653
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        document.body.appendChild(
+            sidebar
+        );
+
+
+        /* =================================================
+           HEADER
+           ================================================= */
+
+        var header =
+            document.createElement(
+                "div"
+            );
+
+
+        header.id =
+            "dashboard-header";
+
+
+        header.innerHTML = `
+
+            <div id="dashboard-title">
+
+                <h1>
+                    Dashboard WebGIS Antam Pongkor
+                </h1>
+
+
+                <p>
+                    Jaringan Jalan & Evakuasi Tambang
+                </p>
+
+            </div>
+
+
+            <div id="dashboard-datetime">
+
+                <div id="dashboard-date">
+                    -
+                </div>
+
+
+                <div id="dashboard-time">
+                    -
+                </div>
+
+            </div>
+
+        `;
+
+
+        document.body.appendChild(
+            header
+        );
+
+
+        /* =================================================
+           STATISTIK
+           ================================================= */
+
+        var stats =
+            document.createElement(
+                "div"
+            );
+
+
+        stats.id =
+            "dashboard-stats";
+
+
+        stats.innerHTML = `
+
+            <div class="stat-card">
+
+                <div class="stat-title">
+                    Total Jalur Evakuasi
+                </div>
+
+
+                <div
+                    class="stat-value"
+                    id="total-ruas"
+                >
+                    -
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-title">
+                    Total Panjang Jalur
+                </div>
+
+
+                <div
+                    class="stat-value"
+                    id="total-panjang"
+                >
+                    -
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-title">
+                    Total Titik Kumpul
+                </div>
+
+
+                <div
+                    class="stat-value"
+                    id="total-drive-time"
+                >
+                    -
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-title">
+                    Total Fasilitas
+                </div>
+
+
+                <div
+                    class="stat-value"
+                    id="rata-drive-time"
+                >
+                    -
+                </div>
+
+            </div>
+
+        `;
+
+
+        document.body.appendChild(
+            stats
+        );
+
+
+        /* =================================================
+           TOGGLE SIDEBAR
+           ================================================= */
+
+        button.addEventListener(
+            "click",
+            function () {
+
+
+                sidebar.classList.toggle(
+                    "dashboard-hidden"
+                );
+
+
+                setTimeout(
+                    function () {
+
+                        if (
+                            typeof map !==
+                            "undefined"
+                        ) {
+
+                            map.invalidateSize();
+
+                        }
+
+                    },
+                    300
+                );
+
+            }
+        );
+
+
+/* =================================================
+   FILTER RUTE EVAKUASI
+   ================================================= */
+
+var filterRute =
+    document.getElementById(
+        "rute-evakuasi-filter"
+    );
+
+
+/* =================================================
+   MEMBUAT DAFTAR RUTE OTOMATIS
+   ================================================= */
+
+if (
+    typeof json_evakuasi_utama_3_4
+    !== "undefined"
+) {
+
+    var daftarRute = new Set();
+
+
+    json_evakuasi_utama_3_4.features
+        .forEach(
+            function (feature) {
+
+                var p =
+                    feature.properties || {};
+
+
+                var lokasiAwal =
+                    String(
+                        p["Lokasi Awal"] ?? ""
+                    ).trim();
+
+
+                var tujuan =
+                    String(
+                        p["Tujuan"] ?? ""
+                    ).trim();
+
+
+                if (
+                    lokasiAwal !== "" &&
+                    tujuan !== ""
+                ) {
+
+                    var namaRute =
+                        lokasiAwal +
+                        " → " +
+                        tujuan;
+
+
+                    daftarRute.add(
+                        namaRute
+                    );
+
+                }
+
+            }
+        );
+
+
+    /* =================================================
+       MASUKKAN RUTE KE DROPDOWN
+       ================================================= */
+
+    Array.from(daftarRute)
+        .sort()
+        .forEach(
+            function (namaRute) {
+
+                var option =
+                    document.createElement(
+                        "option"
+                    );
+
+
+                option.value =
+                    namaRute;
+
+
+                option.textContent =
+                    namaRute;
+
+
+                filterRute.appendChild(
+                    option
+                );
+
+            }
+        );
+
+}
+
+       /* =================================================
+          FILTER RUTE EVAKUASI UTAMA & SEMENTARA
+          ================================================= */
+
+        var filterRuteSementara =
+            document.getElementById("rute-sementara-filter");
+
+        /*
+         * Aturan tampilan:
+         * 1. Saat halaman pertama dibuka: semua rute utama +
+         *    semua rute sementara ditampilkan.
+         * 2. Memilih satu RUTE EVAKUASI UTAMA:
+         *    hanya rute utama yang dipilih yang tampil.
+         *    semua rute sementara disembunyikan.
+         * 3. Memilih satu RUTE EVAKUASI SEMENTARA:
+         *    hanya rute sementara yang dipilih yang tampil.
+         *    semua rute utama disembunyikan.
+         * 4. Memilih "Semua Rute" pada salah satu dropdown:
+         *    kembali menampilkan semua rute utama + sementara.
+         */
+
+        function setStyleRute(layer, tampil) {
+            if (!layer) return;
+
+            layer._routeVisible = !!tampil;
+
+            if (layer.setStyle) {
+                layer.setStyle({
+                    opacity: tampil ? 1 : 0,
+                    fillOpacity: tampil ? 1 : 0
+                });
+            }
+
+            /* Rute hanya dikontrol dari dashboard, bukan dari peta. */
+            if (typeof layer.off === "function") layer.off();
+            if (layer._path) layer._path.style.pointerEvents = "none";
+        }
+
+        function matikanInteraksiRute() {
+            function matikan(group) {
+                if (!group || typeof group.eachLayer !== "function") return;
+                group.eachLayer(function(layer) {
+                    if (typeof layer.off === "function") layer.off();
+                    layer._routeDashboardOnly = true;
+                    if (layer._path) layer._path.style.pointerEvents = "none";
+                });
+            }
+            matikan(typeof layer_evakuasi_utama_3_4 !== "undefined" ? layer_evakuasi_utama_3_4 : null);
+            matikan(typeof layer_JALUR_TITIK_KUMPUL_3 !== "undefined" ? layer_JALUR_TITIK_KUMPUL_3 : null);
+        }
+
+        function tampilkanSemuaRute() {
+
+            if (
+                typeof layer_evakuasi_utama_3_4 !== "undefined"
+            ) {
+                layer_evakuasi_utama_3_4.eachLayer(
+                    function(layer) {
+                        setStyleRute(layer, true);
+                    }
+                );
+            }
+
+            if (
+                typeof layer_JALUR_TITIK_KUMPUL_3 !== "undefined"
+            ) {
+                layer_JALUR_TITIK_KUMPUL_3.eachLayer(
+                    function(layer) {
+                        setStyleRute(layer, true);
+                    }
+                );
+            }
+
+        }
+
+        function tampilkanRuteUtamaYangDipilih(selected) {
+
+            if (
+                typeof layer_evakuasi_utama_3_4 === "undefined"
+            ) {
+                return;
+            }
+
+            layer_evakuasi_utama_3_4.eachLayer(
+                function(layer) {
+
+                    if (!layer.feature) {
+                        return;
+                    }
+
+                    var p =
+                        layer.feature.properties || {};
+
+                    var lokasiAwal =
+                        String(
+                            p["Lokasi Awal"] ?? ""
+                        ).trim();
+
+                    var tujuan =
+                        String(
+                            p["Tujuan"] ?? ""
+                        ).trim();
+
+                    var namaRute =
+                        lokasiAwal + " → " + tujuan;
+
+                    setStyleRute(
+                        layer,
+                        namaRute === selected
+                    );
+
+                }
+            );
+
+        }
+
+        function sembunyikanSemuaRuteSementara() {
+
+            if (
+                typeof layer_JALUR_TITIK_KUMPUL_3 === "undefined"
+            ) {
+                return;
+            }
+
+            layer_JALUR_TITIK_KUMPUL_3.eachLayer(
+                function(layer) {
+                    setStyleRute(layer, false);
+                }
+            );
+
+        }
+
+        function tampilkanRuteSementaraYangDipilih(selected) {
+
+            if (
+                typeof layer_JALUR_TITIK_KUMPUL_3 === "undefined"
+            ) {
+                return;
+            }
+
+            layer_JALUR_TITIK_KUMPUL_3.eachLayer(
+                function(layer) {
+
+                    if (!layer.feature) {
+                        return;
+                    }
+
+                    var p =
+                        layer.feature.properties || {};
+
+                    var namaRute =
+                        String(
+                            p["Keterangan"] ?? ""
+                        ).trim();
+
+                    setStyleRute(
+                        layer,
+                        namaRute === selected
+                    );
+
+                }
+            );
+
+        }
+
+        /* =================================================
+           FILTER RUTE EVAKUASI UTAMA
+           ================================================= */
+
+        filterRute.addEventListener(
+            "change",
+            function() {
+
+                var selected =
+                    this.value;
+
+                if (
+                    selected === "SEMUA_RUTE"
+                ) {
+
+                    tampilkanSemuaRute();
+
+                    if (filterRuteSementara) {
+                        filterRuteSementara.value =
+                            "SEMUA_RUTE_SEMENTARA";
+                    }
+
+                } else {
+
+                    tampilkanRuteUtamaYangDipilih(
+                        selected
+                    );
+
+                    /* Rute sementara disembunyikan */
+                    sembunyikanSemuaRuteSementara();
+
+                    if (filterRuteSementara) {
+                        filterRuteSementara.value =
+                            "SEMUA_RUTE_SEMENTARA";
+                    }
+
+                }
+
+                updateStatistics();
+
+            }
+        );
+
+        /* =================================================
+           ISI DROPDOWN RUTE EVAKUASI SEMENTARA
+           ================================================= */
+
+        if (
+            filterRuteSementara &&
+            typeof json_JALUR_TITIK_KUMPUL_3 !== "undefined"
+        ) {
+
+            var daftarRuteSementara =
+                new Set();
+
+            json_JALUR_TITIK_KUMPUL_3.features.forEach(
+                function(feature) {
+
+                    var p =
+                        feature.properties || {};
+
+                    var keterangan =
+                        String(
+                            p["Keterangan"] ?? ""
+                        ).trim();
+
+                    if (keterangan !== "") {
+                        daftarRuteSementara.add(
+                            keterangan
+                        );
+                    }
+
+                }
+            );
+
+            Array.from(daftarRuteSementara)
+                .sort()
+                .forEach(
+                    function(namaRute) {
+
+                        var option =
+                            document.createElement(
+                                "option"
+                            );
+
+                        option.value =
+                            namaRute;
+
+                        option.textContent =
+                            namaRute;
+
+                        filterRuteSementara.appendChild(
+                            option
+                        );
+
+                    }
+                );
+
+            /* =================================================
+               FILTER RUTE EVAKUASI SEMENTARA
+               ================================================= */
+
+            filterRuteSementara.addEventListener(
+                "change",
+                function() {
+
+                    var selected =
+                        this.value;
+
+                    if (
+                        selected ===
+                        "SEMUA_RUTE_SEMENTARA"
+                    ) {
+
+                        tampilkanSemuaRute();
+
+                        if (filterRute) {
+                            filterRute.value =
+                                "SEMUA_RUTE";
+                        }
+
+                    } else {
+
+                        tampilkanRuteSementaraYangDipilih(
+                            selected
+                        );
+
+                        /* Rute utama disembunyikan */
+                        if (
+                            typeof layer_evakuasi_utama_3_4
+                            !== "undefined"
+                        ) {
+
+                            layer_evakuasi_utama_3_4.eachLayer(
+                                function(layer) {
+                                    setStyleRute(
+                                        layer,
+                                        false
+                                    );
+                                }
+                            );
+
+                        }
+
+                        if (filterRute) {
+                            filterRute.value =
+                                "SEMUA_RUTE";
+                        }
+
+                    }
+
+                    updateStatistics();
+
+                }
+            );
+
+        }
+
+        /*
+         * KONDISI AWAL:
+         * semua rute utama dan semua rute sementara tampil.
+         */
+        tampilkanSemuaRute();
+        matikanInteraksiRute();
+
+
+        /* =================================================
+           FUNGSI TOGGLE LAYER
+           ================================================= */
+
+        function toggleLayer(
+            layer,
+            tampil
+        ) {
+
+
+            if (
+
+                typeof map ===
+                "undefined"
+
+                ||
+
+                !layer
+
+            ) {
+
+                return;
+
+            }
+
+
+            if (
+
+                tampil &&
+
+                !map.hasLayer(layer)
+
+            ) {
+
+                map.addLayer(
+                    layer
+                );
+
+            }
+
+
+            if (
+
+                !tampil &&
+
+                map.hasLayer(layer)
+
+            ) {
+
+                map.removeLayer(
+                    layer
+                );
+
+            }
+
+        }
+
+
+        /* =================================================
+           TOGGLE JALUR EVAKUASI
+           ================================================= */
+
+        document
+            .getElementById(
+                "toggle-rute"
+            )
+            .addEventListener(
+                "change",
+                function () {
+
+                    toggleLayer(
+                        layer_evakuasi_utama_3_4,
+                        this.checked
+                    );
+
+                }
+            );
+
+        /* =================================================
+           FILTER RUTE EVAKUASI SEMENTARA
+           (JALUR TITIK KUMPUL)
+           INDEPENDEN DARI RUTE EVAKUASI UTAMA
+           ================================================= */
+
+        var filterRuteSementara =
+            document.getElementById(
+                "rute-sementara-filter"
+            );
+
+        if (
+            filterRuteSementara &&
+            typeof json_JALUR_TITIK_KUMPUL_3 !== "undefined"
+        ) {
+
+            var daftarRuteSementara = new Set();
+
+            json_JALUR_TITIK_KUMPUL_3.features.forEach(
+                function (feature) {
+
+                    var p =
+                        feature.properties || {};
+
+                    var keterangan =
+                        String(
+                            p["Keterangan"] ?? ""
+                        ).trim();
+
+                    if (keterangan !== "") {
+                        daftarRuteSementara.add(keterangan);
+                    }
+
+                }
+            );
+
+            Array.from(daftarRuteSementara)
+                .sort()
+                .forEach(
+                    function (namaRute) {
+
+                        var option =
+                            document.createElement(
+                                "option"
+                            );
+
+                        option.value =
+                            namaRute;
+
+                        option.textContent =
+                            namaRute;
+
+                        filterRuteSementara.appendChild(
+                            option
+                        );
+
+                    }
+                );
+
+            filterRuteSementara.addEventListener(
+                "change",
+                function () {
+
+                    var selected =
+                        this.value;
+
+                    if (
+                        typeof layer_JALUR_TITIK_KUMPUL_3
+                        === "undefined"
+                    ) {
+                        return;
+                    }
+
+                    layer_JALUR_TITIK_KUMPUL_3.eachLayer(
+                        function (layer) {
+
+                            if (!layer.feature) {
+                                return;
+                            }
+
+                            var p =
+                                layer.feature.properties || {};
+
+                            var namaRute =
+                                String(
+                                    p["Keterangan"] ?? ""
+                                ).trim();
+
+                            var tampil =
+                                selected ===
+                                "SEMUA_RUTE_SEMENTARA"
+                                ||
+                                namaRute === selected;
+
+                            if (layer.setStyle) {
+
+                                layer.setStyle({
+                                    opacity:
+                                        tampil ? 1 : 0,
+
+                                    fillOpacity:
+                                        tampil ? 1 : 0
+                                });
+
+                            }
+
+                        }
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* =================================================
+           TOGGLE TITIK KUMPUL
+           ================================================= */
+
+        document
+            .getElementById(
+                "toggle-kumpul"
+            )
+            .addEventListener(
+                "change",
+                function () {
+
+                    toggleLayer(
+                        layer_TITIK_KUMPUL_Sementara_1,
+                        this.checked
+                    );
+
+                }
+            );
+
+
+        /* =================================================
+           TOGGLE FASILITAS
+           ================================================= */
+
+        document
+            .getElementById(
+                "toggle-fasilitas"
+            )
+            .addEventListener(
+                "change",
+                function () {
+
+                    toggleLayer(
+                        layer_FasilitasKesehatan_2,
+                        this.checked
+                    );
+
+                }
+            );
+
+
+        /* =================================================
+           HITUNG JARAK DARI GEOMETRI JIKA FIELD KOSONG
+           ================================================= */
+        function hitungPanjangRuteMeter(layer) {
+            if (!layer || typeof layer.getLatLngs !== "function" || typeof map === "undefined") return 0;
+
+            function panjang(data) {
+                if (!Array.isArray(data) || data.length < 2) return 0;
+                if (data[0] && typeof data[0].lat === "number" && typeof data[0].lng === "number") {
+                    var total = 0;
+                    for (var i = 1; i < data.length; i++) total += map.distance(data[i-1], data[i]);
+                    return total;
+                }
+                return data.reduce(function(sum, item) { return sum + panjang(item); }, 0);
+            }
+            return panjang(layer.getLatLngs());
+        }
+
+        /* =================================================
+           STATISTIK
+           ================================================= */
+
+        function updateStatistics() {
+
+
+            var totalJalur =
+                0;
+
+
+            var totalPanjang =
+                0;
+
+
+            var totalKumpul =
+                0;
+
+
+            var totalFasilitas =
+                0;
+
+
+           var selected =
+    filterRute.value;
+
+
+            /* ==============================
+               JALUR EVAKUASI
+               ============================== */
+
+            if (
+                typeof
+                layer_evakuasi_utama_3_4
+                !== "undefined"
+            ) {
+
+
+                layer_evakuasi_utama_3_4
+                    .eachLayer(
+                        function (layer) {
+
+
+                            if (
+                                !layer.feature
+                            ) {
+
+                                return;
+
+                            }
+
+
+                            var p =
+                                layer.feature
+                                    .properties ||
+                                {};
+
+
+                           var lokasiAwal =
+    String(
+        p["Lokasi Awal"] ?? ""
+    ).trim();
+
+
+var tujuan =
+    String(
+        p["Tujuan"] ?? ""
+    ).trim();
+
+
+var namaRute =
+    lokasiAwal +
+    " → " +
+    tujuan;
+
+
+if (
+
+    selected !==
+    "SEMUA_RUTE"
+
+    &&
+
+    namaRute !==
+    selected
+
+) {
+
+    return;
+
+}
+
+                            totalJalur++;
+
+
+                            /* Jarak */
+
+                            var rawJarak = p["Jarak Jalur Evakuasi"];
+                            var jarak = 0;
+
+                            if (rawJarak !== null && rawJarak !== undefined && String(rawJarak).trim() !== "") {
+                                var angka = String(rawJarak).replace(",", ".").replace(/[^\\d.-]/g, "");
+                                jarak = Number(angka);
+                            }
+
+                            if (!Number.isFinite(jarak) || jarak <= 0) {
+                                jarak = hitungPanjangRuteMeter(layer);
+                            }
+
+                            if (Number.isFinite(jarak) && jarak > 0) {
+                                totalPanjang += jarak;
+                            }
+
+                        }
+                    );
+
+            }
+
+
+            /* ==============================
+               TITIK KUMPUL
+               ============================== */
+
+            if (
+                typeof
+                layer_TITIK_KUMPUL_Sementara_1
+                !== "undefined"
+            ) {
+
+
+                layer_TITIK_KUMPUL_Sementara_1
+                    .eachLayer(
+                        function () {
+
+                            totalKumpul++;
+
+                        }
+                    );
+
+            }
+
+
+            /* ==============================
+               FASILITAS
+               ============================== */
+
+            if (
+                typeof
+                layer_FasilitasKesehatan_2
+                !== "undefined"
+            ) {
+
+
+                layer_FasilitasKesehatan_2
+                    .eachLayer(
+                        function () {
+
+                            totalFasilitas++;
+
+                        }
+                    );
+
+            }
+
+
+            /* ==============================
+               TAMPILKAN
+               ============================== */
+
+            document
+                .getElementById(
+                    "total-ruas"
+                )
+                .textContent =
+
+                totalJalur
+                    .toLocaleString(
+                        "id-ID"
+                    );
+
+
+            document
+                .getElementById(
+                    "total-panjang"
+                )
+                .textContent =
+
+                (
+                    totalPanjang /
+                    1000
+                )
+                .toLocaleString(
+                    "id-ID",
+                    {
+                        minimumFractionDigits:
+                            2,
+
+                        maximumFractionDigits:
+                            2
+                    }
+                )
+
+                +
+
+                " km";
+
+
+            document
+                .getElementById(
+                    "total-drive-time"
+                )
+                .textContent =
+
+                totalKumpul
+                    .toLocaleString(
+                        "id-ID"
+                    );
+
+
+            document
+                .getElementById(
+                    "rata-drive-time"
+                )
+                .textContent =
+
+                totalFasilitas
+                    .toLocaleString(
+                        "id-ID"
+                    );
+
+        }
+
+
+        /* =================================================
+           JAM DAN TANGGAL
+           ================================================= */
+
+        function updateClock() {
+
+
+            var now =
+                new Date();
+
+
+            document
+                .getElementById(
+                    "dashboard-date"
+                )
+                .textContent =
+
+                now.toLocaleDateString(
+                    "id-ID",
+                    {
+                        day: "2-digit",
+                        month: "long",
+                        year: "numeric"
+                    }
+                );
+
+
+            document
+                .getElementById(
+                    "dashboard-time"
+                )
+                .textContent =
+
+                now.toLocaleTimeString(
+                    "id-ID",
+                    {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit"
+                    }
+                );
+
+        }
+
+
+        updateStatistics();
+
+
+        updateClock();
+
+
+        setInterval(
+            updateClock,
+            1000
+        );
+
+
+        /* =================================================
+           REFRESH MAP
+           ================================================= */
+
+        setTimeout(
+            function () {
+
+                if (
+                    typeof map !==
+                    "undefined"
+                ) {
+
+                    map.invalidateSize();
+
+                }
+
+            },
+            500
+        );
+
+    }
+
+
+    /* =====================================================
+       JALANKAN
+       ===================================================== */
+
+    tungguPeta(
+        buatDashboard
+    );
+
+    /* Jika layer rute terlambat tersedia, dashboard tetap muncul;
+       interaksi rute dimatikan lagi setelah layer selesai. */
+    setTimeout(function () {
+        matikanInteraksiRuteSafe();
+    }, 1000);
+
+    function matikanInteraksiRuteSafe() {
+        if (typeof matikanInteraksiRute === "function") {
+            matikanInteraksiRute();
+        }
+    }
+
+
+})();
+
+</script>
+
+
+<!-- =========================================================
+     FIX LOGO ANTAM
+     ========================================================= -->
+
+<script>
+
+(function () {
+
+
+    function pasangLogo() {
+
+
+        var logo =
+            document.getElementById(
+                "sidebar-logo"
+            );
+
+
+        if (!logo) {
+
+            setTimeout(
+                pasangLogo,
+                300
+            );
+
+            return;
+
+        }
+
+
+        var daftarLogo = [
+
+            "images/logo-antam.png",
+
+            "images/Antam Logo - Colored - zonalogo.com (1).png",
+
+            "images/Antam%20Logo%20-%20Colored%20-%20zonalogo.com%20%281%29.png",
+
+            "logo-antam.png",
+
+            "Antam Logo - Colored - zonalogo.com (1).png"
+
+        ];
+
+
+        var nomor = 0;
+
+
+        function cobaLogo() {
+
+
+            if (
+                nomor >=
+                daftarLogo.length
+            ) {
+
+                console.error(
+                    "LOGO ANTAM TIDAK DITEMUKAN."
+                );
+
+                return;
+
+            }
+
+
+            var alamat =
+                daftarLogo[nomor];
+
+
+            var gambar =
+                new Image();
+
+
+            gambar.onload =
+                function () {
+
+                    logo.src =
+                        alamat;
+
+                };
+
+
+            gambar.onerror =
+                function () {
+
+                    nomor++;
+
+                    cobaLogo();
+
+                };
+
+
+            gambar.src =
+                alamat;
+
+        }
+
+
+        cobaLogo();
+
+    }
+
+
+    pasangLogo();
+
+
+})();
+
+</script>
+		<!-- =========================================================
+     NAVIGASI EVAKUASI REAL-TIME
+     ========================================================= -->
+
+<script>
+
+(function () {
+
+    "use strict";
+
+    var navigationActive = false;
+    var watchId = null;
+
+    var userMarker = null;
+    var accuracyCircle = null;
+
+    var routeLine = null;
+    var progressLine = null;
+
+    var lastPosition = null;
+    var distanceTravelled = 0;
+
+	var markerGPS = null;
+var circleGPS = null;
+
+
+    /* =====================================================
+       HITUNG JARAK ANTAR KOORDINAT
+       ===================================================== */
+
+    function hitungJarak(lat1, lon1, lat2, lon2) {
+
+        var R = 6371000;
+
+        var dLat =
+            (lat2 - lat1) *
+            Math.PI / 180;
+
+        var dLon =
+            (lon2 - lon1) *
+            Math.PI / 180;
+
+        var a =
+            Math.sin(dLat / 2) *
+            Math.sin(dLat / 2) +
+
+            Math.cos(lat1 * Math.PI / 180) *
+            Math.cos(lat2 * Math.PI / 180) *
+
+            Math.sin(dLon / 2) *
+            Math.sin(dLon / 2);
+
+        var c =
+            2 *
+            Math.atan2(
+                Math.sqrt(a),
+                Math.sqrt(1 - a)
+            );
+
+        return R * c;
+
+    }
+
+
+    /* =====================================================
+       FORMAT JARAK
+       ===================================================== */
+
+    function formatJarak(meter) {
+
+        if (
+            meter === null ||
+            meter === undefined ||
+            !Number.isFinite(meter)
+        ) {
+
+            return "-";
+
+        }
+
+        if (meter >= 1000) {
+
+            return (
+                meter / 1000
+            ).toLocaleString(
+                "id-ID",
+                {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }
+            ) + " km";
+
+        }
+
+        return (
+            Math.round(meter)
+        ).toLocaleString(
+            "id-ID"
+        ) + " m";
+
+    }
+
+
+    /* =====================================================
+       AMBIL TOTAL PANJANG RUTE TERPILIH
+       ===================================================== */
+
+    function getSelectedRouteLength() {
+
+        var filter =
+            document.getElementById(
+                "rute-evakuasi-filter"
+            );
+
+        if (!filter) {
+
+            return 0;
+
+        }
+
+        var selected =
+            filter.value;
+
+        var total = 0;
+
+
+        if (
+            typeof json_evakuasi_utama_3_4 ===
+            "undefined"
+        ) {
+
+            return 0;
+
+        }
+
+
+        json_evakuasi_utama_3_4.features
+            .forEach(function (feature) {
+
+                var p =
+                    feature.properties || {};
+
+                var lokasi =
+                    String(
+                        p["Lokasi Awal"] ?? ""
+                    ).trim();
+
+                var tujuan =
+                    String(
+                        p["Tujuan"] ?? ""
+                    ).trim();
+
+                var namaRute =
+                    lokasi +
+                    " → " +
+                    tujuan;
+
+
+                if (
+                    selected !== "SEMUA_RUTE" &&
+                    namaRute !== selected
+                ) {
+
+                    return;
+
+                }
+
+
+                var raw =
+                    p[
+                        "Jarak Jalur Evakuasi"
+                    ];
+
+
+                if (
+                    raw !== null &&
+                    raw !== undefined
+                ) {
+
+                    var angka =
+                        String(raw)
+                            .replace(",", ".")
+                            .replace(
+                                /[^\d.-]/g,
+                                ""
+                            );
+
+                    var nilai =
+                        Number(angka);
+
+
+                    if (
+                        Number.isFinite(nilai)
+                    ) {
+
+                        total += nilai;
+
+                    }
+
+                }
+
+            });
+
+
+        return total;
+
+    }
+
+
+    /* =====================================================
+       UPDATE STATISTIK NAVIGASI
+       ===================================================== */
+
+    function updateNavigationStats() {
+
+        var ditempuh =
+            document.getElementById(
+                "navigation-ditempuh"
+            );
+
+        var tersisa =
+            document.getElementById(
+                "navigation-tersisa"
+            );
+
+
+        if (ditempuh) {
+
+            ditempuh.textContent =
+                formatJarak(
+                    distanceTravelled
+                );
+
+        }
+
+
+        if (tersisa) {
+
+            var totalRute =
+                getSelectedRouteLength();
+
+
+            var sisa =
+                Math.max(
+                    0,
+                    totalRute -
+                    distanceTravelled
+                );
+
+
+            tersisa.textContent =
+                formatJarak(sisa);
+
+        }
+
+    }
+
+
+  /* =====================================================
+   GPS BERUBAH - FILTER GPS DRIFT
+   ===================================================== */
+
+function posisiBerubah(position) {
+
+    var lat =
+        position.coords.latitude;
+
+    var lng =
+        position.coords.longitude;
+
+    var accuracy =
+        position.coords.accuracy;
+
+
+    /* =================================================
+       FILTER AKURASI GPS
+       ================================================= */
+
+  if (
+    !Number.isFinite(accuracy)
+) {
+
+    console.log(
+        "GPS tidak valid"
+    );
+
+    return;
+
+}
+
+console.log(
+    "GPS diterima - akurasi:",
+    accuracy,
+    "meter"
+);
+
+    /* =================================================
+       POSISI USER
+       ================================================= */
+
+    var posisiUser =
+        [lat, lng];
+
+
+    /* =================================================
+       MARKER POSISI USER
+       ================================================= */
+
+    if (!userMarker) {
+
+        userMarker =
+            L.marker(
+                posisiUser,
+                {
+                    icon: L.divIcon({
+
+                        className:
+                            "gps-user-marker",
+
+                        html:
+                            '<div class="gps-user-dot">' +
+                            '<div class="gps-user-arrow">●</div>' +
+                            '</div>',
+
+                        iconSize:
+                            [36, 36],
+
+                        iconAnchor:
+                            [18, 18]
+
+                    }),
+
+                    zIndexOffset:
+                        10000
+                }
+            )
+            .addTo(map);
+
+    } else {
+
+        userMarker.setLatLng(
+            posisiUser
+        );
+
+    }
+
+
+    /* =================================================
+       LINGKARAN AKURASI GPS
+       ================================================= */
+
+    if (!accuracyCircle) {
+
+        accuracyCircle =
+            L.circle(
+                posisiUser,
+                {
+                    radius:
+                        accuracy,
+
+                    color:
+                        '#00a6a6',
+
+                    weight:
+                        1,
+
+                    fillColor:
+                        '#00a6a6',
+
+                    fillOpacity:
+                        0.12
+                }
+            )
+            .addTo(map);
+
+    } else {
+
+        accuracyCircle.setLatLng(
+            posisiUser
+        );
+
+        accuracyCircle.setRadius(
+            accuracy
+        );
+
+    }
+
+
+    /* =================================================
+       HITUNG JARAK TEMPUH
+       ================================================= */
+
+    if (lastPosition) {
+
+        var jarak =
+            hitungJarak(
+                lastPosition.lat,
+                lastPosition.lng,
+                lat,
+                lng
+            );
+
+
+        var threshold =
+            Math.max(
+                6,
+                accuracy * 0.5
+            );
+
+
+        var waktuSekarang =
+            Date.now();
+
+
+        var selisihWaktu =
+            (
+                waktuSekarang -
+                lastPosition.time
+            ) / 1000;
+
+
+        var kecepatan =
+            selisihWaktu > 0
+                ? jarak / selisihWaktu
+                : 0;
+
+
+        if (
+            jarak < threshold
+        ) {
+
+            console.log(
+                "GPS drift diabaikan:",
+                jarak.toFixed(1),
+                "m"
+            );
+
+        }
+
+        else if (
+            kecepatan >= 0.5 &&
+            kecepatan <= 8
+        ) {
+
+            distanceTravelled +=
+                jarak;
+
+            console.log(
+                "Pergerakan diterima:",
+                jarak.toFixed(1),
+                "m"
+            );
+
+        }
+
+    }
+
+
+    /* =================================================
+       SIMPAN POSISI TERAKHIR
+       ================================================= */
+
+    lastPosition = {
+
+        lat: lat,
+
+        lng: lng,
+
+        time: Date.now()
+
+    };
+
+
+    /* =================================================
+       UPDATE STATISTIK
+       ================================================= */
+
+    updateNavigationStats();
+
+
+    /* =================================================
+       IKUTI POSISI USER
+       ================================================= */
+
+    if (navigationActive) {
+
+        map.setView(
+            posisiUser,
+            Math.max(
+                map.getZoom(),
+                17
+            ),
+            {
+                animate: true
+            }
+        );
+
+    }
+
+}
+
+
+    /* =====================================================
+       GPS ERROR
+       ===================================================== */
+
+    function gpsError(error) {
+
+        console.error(
+            "GPS Error:",
+            error
+        );
+
+        alert(
+            "Lokasi GPS tidak dapat diperoleh.\n\n" +
+            "Pastikan izin lokasi browser sudah diaktifkan."
+        );
+
+    }
+
+
+    /* =====================================================
+       MULAI NAVIGASI
+       ===================================================== */
+
+    function mulaiNavigasi() {
+
+        if (!navigator.geolocation) {
+
+            alert(
+                "Browser tidak mendukung GPS."
+            );
+
+            return;
+
+        }
+
+
+        navigationActive = true;
+
+        distanceTravelled = 0;
+
+        lastPosition = null;
+
+
+        updateNavigationStats();
+
+
+        /* ==============================
+           MINTA POSISI AWAL
+           ============================== */
+
+        navigator.geolocation.getCurrentPosition(
+            posisiBerubah,
+            gpsError,
+            {
+                enableHighAccuracy: true,
+                timeout: 15000,
+                maximumAge: 0
+            }
+        );
+
+
+        /* ==============================
+           PANTAU GPS TERUS
+           ============================== */
+
+        watchId =
+            navigator.geolocation.watchPosition(
+                posisiBerubah,
+                gpsError,
+                {
+                    enableHighAccuracy: true,
+                    timeout: 15000,
+                    maximumAge: 1000
+                }
+            );
+
+
+        updateNavigationButton();
+
+    }
+
+
+    /* =====================================================
+       HENTIKAN NAVIGASI
+       ===================================================== */
+
+    function hentikanNavigasi() {
+
+        navigationActive = false;
+
+
+        if (
+            watchId !== null
+        ) {
+
+            navigator.geolocation.clearWatch(
+                watchId
+            );
+
+            watchId = null;
+
+        }
+
+
+        if (userMarker) {
+
+            map.removeLayer(
+                userMarker
+            );
+
+            userMarker = null;
+
+        }
+
+
+        if (accuracyCircle) {
+
+            map.removeLayer(
+                accuracyCircle
+            );
+
+            accuracyCircle = null;
+
+        }
+
+
+        lastPosition = null;
+
+
+        updateNavigationButton();
+
+    }
+
+
+    /* =====================================================
+       TOMBOL NAVIGASI
+       ===================================================== */
+
+    function updateNavigationButton() {
+
+        var tombol =
+            document.getElementById(
+                "navigation-button"
+            );
+
+
+        if (!tombol) {
+
+            return;
+
+        }
+
+
+        if (navigationActive) {
+
+            tombol.textContent =
+                "■ Hentikan Navigasi";
+
+            tombol.classList.add(
+                "stop"
+            );
+
+        } else {
+
+            tombol.textContent =
+                "▶ Mulai Navigasi";
+
+            tombol.classList.remove(
+                "stop"
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       BUAT 4 TOOLBAR
+       ===================================================== */
+
+    function buatNavigationToolbar() {
+
+        var stats =
+            document.getElementById(
+                "dashboard-stats"
+            );
+
+
+        if (!stats) {
+
+            return;
+
+        }
+
+
+        /*
+         * Kita tetap menggunakan
+         * 4 toolbar saja.
+         */
+
+        stats.innerHTML = `
+
+            <div class="stat-card">
+
+                <div class="stat-title">
+                    Total Panjang Jalur
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="navigation-total"
+                >
+                    -
+                </div>
+
+            </div>
+
+
+            <div class="stat-card navigation-card">
+
+                <div class="stat-title">
+                    Jarak Ditempuh
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="navigation-ditempuh"
+                >
+                    0 m
+                </div>
+
+            </div>
+
+
+            <div class="stat-card navigation-card">
+
+                <div class="stat-title">
+                    Jarak Tersisa
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="navigation-tersisa"
+                >
+                    -
+                </div>
+
+            </div>
+
+
+            <div class="stat-card navigation-card">
+
+                <div class="stat-title">
+                    Navigasi
+                </div>
+
+                <button
+                    id="navigation-button"
+                    class="navigation-button"
+                >
+                    ▶ Mulai Navigasi
+                </button>
+
+            </div>
+
+        `;
+
+
+        /* ==============================
+           TOTAL RUTE
+           ============================== */
+
+        var total =
+            getSelectedRouteLength();
+
+
+        var totalElement =
+            document.getElementById(
+                "navigation-total"
+            );
+
+
+        if (totalElement) {
+
+            totalElement.textContent =
+                formatJarak(total);
+
+        }
+
+
+        /* ==============================
+           EVENT TOMBOL
+           ============================== */
+
+        document
+            .getElementById(
+                "navigation-button"
+            )
+            .addEventListener(
+                "click",
+                function () {
+
+                    if (
+                        navigationActive
+                    ) {
+
+                        hentikanNavigasi();
+
+                    } else {
+
+                        mulaiNavigasi();
+
+                    }
+
+                }
+            );
+
+    }
+
+
+    /* =====================================================
+       UPDATE SAAT RUTE BERUBAH
+       ===================================================== */
+
+    document.addEventListener(
+        "change",
+        function (event) {
+
+            if (
+                event.target &&
+                event.target.id ===
+                "rute-evakuasi-filter"
+            ) {
+
+                var total =
+                    getSelectedRouteLength();
+
+
+                var element =
+                    document.getElementById(
+                        "navigation-total"
+                    );
+
+
+                if (element) {
+
+                    element.textContent =
+                        formatJarak(total);
+
+                }
+
+
+                distanceTravelled = 0;
+
+                updateNavigationStats();
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       JALANKAN SETELAH DASHBOARD SELESAI
+       ===================================================== */
+
+    function tungguDashboard() {
+
+        if (
+            document.getElementById(
+                "dashboard-stats"
+            )
+        ) {
+
+            buatNavigationToolbar();
+
+            return;
+
+        }
+
+
+        setTimeout(
+            tungguDashboard,
+            300
+        );
+
+    }
+
+
+    tungguDashboard();
+
+
+})();
+
+</script>
+	<script>
+/* =========================================================
+   GPS OTOMATIS SAAT WEBGIS DIBUKA
+   Tidak menghitung jarak tempuh
+   ========================================================= */
+
+(function () {
+
+    function tampilkanGPSAwal(position) {
+
+        var lat =
+            position.coords.latitude;
+
+        var lng =
+            position.coords.longitude;
+
+        var accuracy =
+            position.coords.accuracy;
+
+        console.log(
+            "GPS AWAL:",
+            lat,
+            lng,
+            "akurasi:",
+            accuracy,
+            "meter"
+        );
+
+
+        /* =========================================
+           TAMPILKAN MARKER GPS
+           ========================================= */
+
+        if (
+            typeof buatMarkerGPS === "function"
+        ) {
+
+            buatMarkerGPS(
+                lat,
+                lng,
+                accuracy
+            );
+
+        }
+
+
+
+    }
+
+
+    /* =============================================
+       ERROR GPS
+       ============================================= */
+
+    function errorGPS(error) {
+
+        console.log(
+            "GPS awal tidak tersedia:",
+            error.message
+        );
+
+    }
+
+
+    /* =============================================
+       TUNGGU PETA SELESAI
+       ============================================= */
+
+    function mulaiGPSOtomatis() {
+
+        if (
+            typeof map === "undefined"
+        ) {
+
+            setTimeout(
+                mulaiGPSOtomatis,
+                500
+            );
+
+            return;
+
+        }
+
+
+        if (
+            !navigator.geolocation
+        ) {
+
+            console.log(
+                "Browser tidak mendukung GPS."
+            );
+
+            return;
+
+        }
+
+
+        console.log(
+            "Mencari posisi GPS..."
+        );
+
+
+        navigator.geolocation.getCurrentPosition(
+            tampilkanGPSAwal,
+            errorGPS,
+            {
+                enableHighAccuracy: true,
+                timeout: 15000,
+                maximumAge: 0
+            }
+        );
+
+    }
+
+
+    /* =============================================
+       JALANKAN
+       ============================================= */
+
+    mulaiGPSOtomatis();
+
+
+})();
+</script>
+<div id="mine-survey-about-overlay" aria-hidden="true">
+<div id="mine-survey-about-card" role="dialog" aria-modal="true" aria-labelledby="mine-survey-about-title">
+<div id="mine-survey-about-head"><strong id="mine-survey-about-title">TENTANG MINE SURVEY</strong><button id="mine-survey-about-close" type="button" aria-label="Tutup">&times;</button></div>
+<div id="mine-survey-about-body">
+<img id="mine-survey-about-photo" src="mine-survey.jpg" alt="Kegiatan Mine Survey" onerror="this.style.display='none';">
+<h3>MINE SURVEY</h3>
+<p>Mine Survey merupakan bagian penting dalam kegiatan pertambangan yang menyediakan data dan informasi spasial sebagai dasar perencanaan, pelaksanaan, pengawasan, serta pengendalian kegiatan operasional tambang.</p>
+<p>Melalui pengukuran dan pemetaan kondisi aktual area tambang, Mine Survey membantu memastikan posisi, elevasi, batas area, kemajuan pekerjaan, serta kondisi lapangan dapat diketahui secara akurat.</p>
+<h3>MINE SURVEY &amp; KESELAMATAN</h3>
+<p>Informasi hasil survey mendukung pengambilan keputusan yang tepat dan membantu kegiatan operasional berjalan sesuai kondisi lapangan serta rencana yang telah ditetapkan.</p>
+<ul><li>Pengendalian area kerja dan batas-batas operasional.</li><li>Penyediaan informasi posisi dan elevasi area maupun fasilitas.</li><li>Pemetaan kondisi aktual dan perubahan area tambang.</li><li>Penyediaan informasi spasial untuk mendukung pengambilan keputusan.</li><li>Dukungan informasi jalur dan area evakuasi.</li><li>Koordinasi antara surveyor, pengawas, dan tim operasional.</li></ul>
+<div class="mine-survey-quote">“Data yang akurat mendukung keputusan yang tepat, dan keputusan yang tepat mendukung keselamatan.”</div>
+<h3>LINGKUP MINE SURVEY</h3>
+<ul><li>Pengukuran dan pemetaan kondisi aktual.</li><li>Pemantauan posisi dan elevasi.</li><li>Penyediaan data spasial untuk kegiatan operasional.</li><li>Koordinasi data survey untuk kebutuhan perencanaan dan pengawasan.</li><li>Dukungan informasi keselamatan dan evakuasi.</li></ul>
+<h3>STRUKTUR MINE SURVEY 2026</h3>
+<p>Struktur berikut mengikuti istilah yang tercantum pada dokumen Mine Survey 2026 yang diberikan.</p>
+<div class="mine-survey-structure"><div><b>MPD / MINE SURVEY</b><br>Struktur Mine Survey 2026</div><div><b>SURFACE &amp; UNDERGROUND</b><br>Lingkup kegiatan survey</div><div><b>SURVEY COORDINATION</b><br>Koordinasi kegiatan survey</div><div><b>TEAM HEAD</b><br>Pengelolaan tim</div><div><b>SURVEYOR</b><br>Pelaksanaan kegiatan pengukuran dan survey</div><div><b>PENGAWAS / SURVEYOR</b><br>Fungsi pengawasan dan survey</div></div>
+</div></div></div>
+<script id="mine-survey-about-script">
+(function(){
+function openAbout(){var e=document.getElementById("mine-survey-about-overlay");if(e){e.classList.add("is-open");e.setAttribute("aria-hidden","false");}}
+function closeAbout(){var e=document.getElementById("mine-survey-about-overlay");if(e){e.classList.remove("is-open");e.setAttribute("aria-hidden","true");}}
+document.addEventListener("click",function(e){
+var t=e.target,menu=t&&t.closest?t.closest(".sidebar-menu"):null;
+if(menu&&(menu.textContent||"").trim().toLowerCase()==="tentang"){e.preventDefault();e.stopPropagation();openAbout();return;}
+if(t&&t.id==="mine-survey-about-close"){e.preventDefault();closeAbout();return;}
+var o=document.getElementById("mine-survey-about-overlay");if(o&&t===o)closeAbout();
+},true);
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closeAbout();});
+})();
+</script>
+</body>
+</html>
